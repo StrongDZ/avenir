@@ -1,0 +1,669 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Avenir Web MVP API",
+        "version": "1.0.0",
+        "description": "Unified platform API for Cocoon, Lá Spa, Phê La, and Snap Food brands. Health-based recommendations, shopping cart, checkout simulation, and reward points system."
+    },
+    "servers": [
+        {
+            "url": "http://localhost:4000",
+            "description": "Local development server"
+        }
+    ],
+    "paths": {
+        "/products": {
+            "get": {
+                "tags": ["Products"],
+                "summary": "List all products",
+                "description": "Get a list of all products across all brands",
+                "responses": {
+                    "200": {
+                        "description": "List of products",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Product"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/recommendations": {
+            "post": {
+                "tags": ["Recommendations"],
+                "summary": "Get product recommendations",
+                "description": "Get rule-based product recommendations based on health indicators",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/HealthInput"
+                            },
+                            "example": {
+                                "skinType": "oily",
+                                "stressLevel": "medium",
+                                "dietHabit": "balanced",
+                                "sleepHours": "6-8",
+                                "wellnessGoal": "energy"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Recommendation results",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/RecommendationResult"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/cart": {
+            "get": {
+                "tags": ["Cart"],
+                "summary": "Get user cart",
+                "description": "Retrieve all items in the user's shopping cart",
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "demo-user"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Cart items",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CartResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/cart/add": {
+            "post": {
+                "tags": ["Cart"],
+                "summary": "Add item to cart",
+                "description": "Add a product to the user's shopping cart",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CartAddRequest"
+                            },
+                            "example": {
+                                "userId": "demo-user",
+                                "productId": "cocoon-toner-oily",
+                                "quantity": 1
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Item added successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SuccessResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/cart/remove": {
+            "post": {
+                "tags": ["Cart"],
+                "summary": "Remove item from cart",
+                "description": "Remove a product from the user's shopping cart",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CartRemoveRequest"
+                            },
+                            "example": {
+                                "userId": "demo-user",
+                                "productId": "cocoon-toner-oily"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Item removed successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SuccessResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/checkout": {
+            "post": {
+                "tags": ["Checkout"],
+                "summary": "Process checkout",
+                "description": "Simulate payment, create order, apply rewards, and clear cart",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CheckoutRequest"
+                            },
+                            "example": {
+                                "userId": "demo-user",
+                                "redeemPoints": 0
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Checkout successful",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CheckoutResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/rewards": {
+            "get": {
+                "tags": ["Rewards"],
+                "summary": "Get user rewards",
+                "description": "Get reward balance and transaction history",
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "demo-user"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Reward overview",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/RewardOverview"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/ping": {
+            "get": {
+                "tags": ["Health"],
+                "summary": "Health check",
+                "description": "Simple health check endpoint",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": "Hello World!"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Product": {
+                "type": "object",
+                "required": ["id", "brandId", "name", "price"],
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "example": "cocoon-toner-oily"
+                    },
+                    "brandId": {
+                        "type": "string",
+                        "enum": ["cocoon", "la-spa", "phe-la", "snap-food"],
+                        "example": "cocoon"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Cocoon Toner (Oily Skin)"
+                    },
+                    "price": {
+                        "type": "integer",
+                        "description": "Price in VND",
+                        "example": 180000
+                    },
+                    "tags": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "example": ["skin", "oily", "toner"]
+                    },
+                    "attributes": {
+                        "type": "object",
+                        "additionalProperties": true,
+                        "example": {
+                            "skinType": ["oily"],
+                            "benefits": ["balance", "reduce shine"]
+                        }
+                    }
+                }
+            },
+            "HealthInput": {
+                "type": "object",
+                "properties": {
+                    "skinType": {
+                        "type": "string",
+                        "enum": ["oily", "dry", "combination", "sensitive", "normal", "dull"],
+                        "example": "oily"
+                    },
+                    "stressLevel": {
+                        "type": "string",
+                        "enum": ["low", "medium", "high"],
+                        "example": "medium"
+                    },
+                    "dietHabit": {
+                        "type": "string",
+                        "enum": ["healthy", "balanced", "high_protein", "high_carb", "skip_meals"],
+                        "example": "balanced"
+                    },
+                    "sleepHours": {
+                        "type": "string",
+                        "enum": ["1-4", "4-6", "6-8", "8+"],
+                        "example": "6-8"
+                    },
+                    "wellnessGoal": {
+                        "type": "string",
+                        "enum": ["relax", "energy", "glow", "weight", "focus"],
+                        "example": "energy"
+                    }
+                }
+            },
+            "RecommendationResult": {
+                "type": "object",
+                "required": ["primary", "bundles"],
+                "properties": {
+                    "primary": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Product"
+                        },
+                        "description": "Primary recommended products"
+                    },
+                    "bundles": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/components/schemas/Product"
+                            }
+                        },
+                        "description": "Bundle suggestions grouped by product ID"
+                    }
+                }
+            },
+            "CartItem": {
+                "type": "object",
+                "required": ["productId", "quantity"],
+                "properties": {
+                    "productId": {
+                        "type": "string",
+                        "example": "cocoon-toner-oily"
+                    },
+                    "quantity": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "example": 2
+                    },
+                    "product": {
+                        "$ref": "#/components/schemas/Product",
+                        "description": "Product details (if available)"
+                    }
+                }
+            },
+            "CartResponse": {
+                "type": "object",
+                "required": ["items"],
+                "properties": {
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/CartItem"
+                        }
+                    }
+                }
+            },
+            "CartAddRequest": {
+                "type": "object",
+                "required": ["userId", "productId"],
+                "properties": {
+                    "userId": {
+                        "type": "string",
+                        "example": "demo-user"
+                    },
+                    "productId": {
+                        "type": "string",
+                        "example": "cocoon-toner-oily"
+                    },
+                    "quantity": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "default": 1,
+                        "example": 1
+                    }
+                }
+            },
+            "CartRemoveRequest": {
+                "type": "object",
+                "required": ["userId", "productId"],
+                "properties": {
+                    "userId": {
+                        "type": "string",
+                        "example": "demo-user"
+                    },
+                    "productId": {
+                        "type": "string",
+                        "example": "cocoon-toner-oily"
+                    }
+                }
+            },
+            "CheckoutRequest": {
+                "type": "object",
+                "required": ["userId"],
+                "properties": {
+                    "userId": {
+                        "type": "string",
+                        "example": "demo-user"
+                    },
+                    "redeemPoints": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "default": 0,
+                        "description": "Points to redeem (will be capped to available balance)",
+                        "example": 0
+                    }
+                }
+            },
+            "CheckoutResponse": {
+                "type": "object",
+                "required": ["orderId", "subtotal", "discountVnd", "total", "earned"],
+                "properties": {
+                    "orderId": {
+                        "type": "string",
+                        "format": "uuid",
+                        "example": "123e4567-e89b-12d3-a456-426614174000"
+                    },
+                    "subtotal": {
+                        "type": "integer",
+                        "description": "Subtotal in VND before discounts",
+                        "example": 500000
+                    },
+                    "discountVnd": {
+                        "type": "integer",
+                        "description": "Discount amount in VND from redeemed points",
+                        "example": 0
+                    },
+                    "total": {
+                        "type": "integer",
+                        "description": "Final total in VND after discounts",
+                        "example": 500000
+                    },
+                    "earned": {
+                        "type": "integer",
+                        "description": "Points earned from this order (1 point per 10k VND)",
+                        "example": 50
+                    }
+                }
+            },
+            "RewardTransaction": {
+                "type": "object",
+                "required": ["id", "type", "points", "created_at"],
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "example": "123e4567-e89b-12d3-a456-426614174000"
+                    },
+                    "type": {
+                        "type": "string",
+                        "enum": ["earn", "redeem"],
+                        "example": "earn"
+                    },
+                    "points": {
+                        "type": "integer",
+                        "example": 50
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2025-11-05T23:00:00Z"
+                    },
+                    "meta": {
+                        "type": "object",
+                        "additionalProperties": true,
+                        "example": {
+                            "orderId": "123e4567-e89b-12d3-a456-426614174000"
+                        }
+                    }
+                }
+            },
+            "RewardOverview": {
+                "type": "object",
+                "required": ["balance", "transactions"],
+                "properties": {
+                    "balance": {
+                        "type": "integer",
+                        "description": "Current reward points balance",
+                        "example": 150
+                    },
+                    "transactions": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/RewardTransaction"
+                        },
+                        "description": "Recent reward transactions (last 100)"
+                    }
+                }
+            },
+            "SuccessResponse": {
+                "type": "object",
+                "required": ["ok"],
+                "properties": {
+                    "ok": {
+                        "type": "boolean",
+                        "example": true
+                    }
+                }
+            },
+            "Error": {
+                "type": "object",
+                "required": ["message"],
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "example": "Error message description"
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Products",
+            "description": "Product catalog operations"
+        },
+        {
+            "name": "Recommendations",
+            "description": "Health-based product recommendations"
+        },
+        {
+            "name": "Cart",
+            "description": "Shopping cart management"
+        },
+        {
+            "name": "Checkout",
+            "description": "Order processing and payment simulation"
+        },
+        {
+            "name": "Rewards",
+            "description": "Reward points system"
+        },
+        {
+            "name": "Health",
+            "description": "Health check endpoints"
+        }
+    ]
+}

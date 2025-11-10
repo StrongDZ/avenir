@@ -1,0 +1,342 @@
+{
+    "brands": [
+        {
+            "name": "Cocoon",
+            "id": "cocoon",
+            "currency": "VND"
+        },
+        {
+            "name": "Lá Spa",
+            "id": "la-spa",
+            "currency": "VND"
+        },
+        {
+            "name": "Phê La",
+            "id": "phe-la",
+            "currency": "VND"
+        },
+        {
+            "name": "Snap Food",
+            "id": "snap-food",
+            "currency": "VND"
+        }
+    ],
+    "products": [
+        {
+            "id": "cocoon-toner-oily",
+            "brandId": "cocoon",
+            "name": "Cocoon Toner (Oily Skin)",
+            "price": 180000,
+            "tags": ["skin", "oily", "toner"],
+            "attributes": {
+                "skinType": ["oily"],
+                "benefits": ["balance", "reduce shine"],
+                "sleepRange": ["4-6", "6-8"]
+            }
+        },
+        {
+            "id": "cocoon-cream-dry",
+            "brandId": "cocoon",
+            "name": "Cocoon Hydrating Cream (Dry Skin)",
+            "price": 260000,
+            "tags": ["skin", "dry", "cream"],
+            "attributes": {
+                "skinType": ["dry"],
+                "benefits": ["moisturize", "barrier"],
+                "sleepRange": ["6-8", "8+"]
+            }
+        },
+        {
+            "id": "la-spa-massage-stress",
+            "brandId": "la-spa",
+            "name": "Lá Spa Relaxing Massage",
+            "price": 500000,
+            "tags": ["spa", "stress", "massage"],
+            "attributes": {
+                "wellness": ["stress"],
+                "benefits": ["relax", "circulation"],
+                "sleepRange": ["1-4", "4-6", "6-8"]
+            }
+        },
+        {
+            "id": "la-spa-facial-glow",
+            "brandId": "la-spa",
+            "name": "Lá Spa Brightening Facial",
+            "price": 650000,
+            "tags": ["spa", "facial"],
+            "attributes": {
+                "skinType": ["dull"],
+                "benefits": ["glow"],
+                "sleepRange": ["4-6", "6-8"]
+            }
+        },
+        {
+            "id": "phe-la-energy-coffee",
+            "brandId": "phe-la",
+            "name": "Phê La Energy Coffee",
+            "price": 65000,
+            "tags": ["coffee", "energy"],
+            "attributes": {
+                "symptom": ["low_energy"],
+                "benefits": ["energy"],
+                "sleepRange": ["1-4", "4-6"]
+            }
+        },
+        {
+            "id": "phe-la-decaf",
+            "brandId": "phe-la",
+            "name": "Phê La Decaf",
+            "price": 60000,
+            "tags": ["coffee", "decaf"],
+            "attributes": {
+                "symptom": ["relax"],
+                "benefits": ["calm"],
+                "sleepRange": ["6-8", "8+"]
+            }
+        },
+        {
+            "id": "snap-food-salad",
+            "brandId": "snap-food",
+            "name": "Snap Food Fresh Salad",
+            "price": 90000,
+            "tags": ["food", "healthy"],
+            "attributes": {
+                "diet": ["healthy"],
+                "benefits": ["fiber", "vitamins"],
+                "sleepRange": ["4-6", "6-8"]
+            }
+        },
+        {
+            "id": "snap-food-protein-bowl",
+            "brandId": "snap-food",
+            "name": "Snap Food Protein Bowl",
+            "price": 120000,
+            "tags": ["food", "protein"],
+            "attributes": {
+                "diet": ["high_protein"],
+                "benefits": ["muscle", "satiety"],
+                "sleepRange": ["1-4", "4-6"]
+            }
+        },
+
+        {
+            "id": "cocoon-cleanser-gentle",
+            "brandId": "cocoon",
+            "name": "Cocoon Gentle Cleanser",
+            "price": 150000,
+            "tags": ["skin", "cleanser", "gentle"],
+            "attributes": {
+                "skinType": ["sensitive", "normal"],
+                "benefits": ["cleanse", "calm"],
+                "sleepRange": ["4-6", "6-8", "8+"]
+            }
+        },
+        {
+            "id": "cocoon-serum-brightening",
+            "brandId": "cocoon",
+            "name": "Cocoon Brightening Serum",
+            "price": 320000,
+            "tags": ["skin", "serum", "glow"],
+            "attributes": {
+                "skinType": ["dull", "combination"],
+                "benefits": ["glow", "even_tone"],
+                "sleepRange": ["6-8", "8+"]
+            }
+        },
+        {
+            "id": "cocoon-serum-acne",
+            "brandId": "cocoon",
+            "name": "Cocoon Acne Control Serum",
+            "price": 340000,
+            "tags": ["skin", "serum", "acne"],
+            "attributes": {
+                "skinType": ["oily", "combination"],
+                "benefits": ["reduce acne", "balance"],
+                "sleepRange": ["4-6", "6-8"]
+            }
+        },
+        {
+            "id": "cocoon-cream-sensitive",
+            "brandId": "cocoon",
+            "name": "Cocoon Soothing Cream (Sensitive)",
+            "price": 280000,
+            "tags": ["skin", "cream", "sensitive"],
+            "attributes": {
+                "skinType": ["sensitive"],
+                "benefits": ["calm", "barrier"],
+                "sleepRange": ["6-8", "8+"]
+            }
+        },
+        {
+            "id": "cocoon-sunscreen-daily",
+            "brandId": "cocoon",
+            "name": "Cocoon Daily Sunscreen SPF50",
+            "price": 230000,
+            "tags": ["skin", "sunscreen"],
+            "attributes": {
+                "skinType": ["oily", "dry", "combination", "normal"],
+                "benefits": ["protect", "even_tone"],
+                "sleepRange": ["6-8", "8+"]
+            }
+        },
+
+        {
+            "id": "la-spa-deep-tissue",
+            "brandId": "la-spa",
+            "name": "Lá Spa Deep Tissue Massage",
+            "price": 720000,
+            "tags": ["spa", "massage", "muscle"],
+            "attributes": {
+                "wellness": ["stress"],
+                "benefits": ["relax", "muscle_relief"],
+                "sleepRange": ["1-4", "4-6", "6-8"]
+            }
+        },
+        {
+            "id": "la-spa-aroma-sleep",
+            "brandId": "la-spa",
+            "name": "Lá Spa Aroma Therapy (Better Sleep)",
+            "price": 680000,
+            "tags": ["spa", "aroma", "sleep"],
+            "attributes": {
+                "wellness": ["stress"],
+                "benefits": ["calm", "sleep"],
+                "sleepRange": ["4-6", "6-8", "8+"]
+            }
+        },
+        {
+            "id": "la-spa-detox-body-wrap",
+            "brandId": "la-spa",
+            "name": "Lá Spa Detox Body Wrap",
+            "price": 790000,
+            "tags": ["spa", "detox", "body"],
+            "attributes": {
+                "wellness": ["stress"],
+                "benefits": ["detox", "circulation"],
+                "sleepRange": ["1-4", "4-6", "6-8"]
+            }
+        },
+        {
+            "id": "la-spa-focus-head-neck",
+            "brandId": "la-spa",
+            "name": "Lá Spa Head & Neck Focus",
+            "price": 450000,
+            "tags": ["spa", "focus", "headneck"],
+            "attributes": {
+                "wellness": ["focus"],
+                "benefits": ["clear_mind", "relax"],
+                "sleepRange": ["1-4", "4-6", "6-8"]
+            }
+        },
+
+        {
+            "id": "phe-la-cold-brew",
+            "brandId": "phe-la",
+            "name": "Phê La Cold Brew",
+            "price": 70000,
+            "tags": ["coffee", "cold_brew", "energy"],
+            "attributes": {
+                "symptom": ["low_energy"],
+                "benefits": ["focus", "energy"],
+                "sleepRange": ["1-4", "4-6"]
+            }
+        },
+        {
+            "id": "phe-la-matcha-latte",
+            "brandId": "phe-la",
+            "name": "Phê La Matcha Latte",
+            "price": 75000,
+            "tags": ["tea", "matcha", "focus"],
+            "attributes": {
+                "symptom": ["relax"],
+                "benefits": ["focus", "calm"],
+                "sleepRange": ["4-6", "6-8"]
+            }
+        },
+        {
+            "id": "phe-la-cacao-warm",
+            "brandId": "phe-la",
+            "name": "Phê La Warm Cacao",
+            "price": 65000,
+            "tags": ["cacao", "comfort"],
+            "attributes": {
+                "symptom": ["relax"],
+                "benefits": ["calm", "comfort"],
+                "sleepRange": ["6-8", "8+"]
+            }
+        },
+        {
+            "id": "phe-la-espresso-double",
+            "brandId": "phe-la",
+            "name": "Phê La Double Espresso",
+            "price": 55000,
+            "tags": ["coffee", "espresso", "energy"],
+            "attributes": {
+                "symptom": ["low_energy"],
+                "benefits": ["energy"],
+                "sleepRange": ["1-4", "4-6"]
+            }
+        },
+
+        {
+            "id": "snap-food-keto-bowl",
+            "brandId": "snap-food",
+            "name": "Snap Food Keto Bowl",
+            "price": 130000,
+            "tags": ["food", "keto", "low_carb"],
+            "attributes": {
+                "diet": ["high_protein"],
+                "benefits": ["weight", "satiety"],
+                "sleepRange": ["1-4", "4-6"]
+            }
+        },
+        {
+            "id": "snap-food-oatmeal-berry",
+            "brandId": "snap-food",
+            "name": "Snap Food Oatmeal Berry",
+            "price": 85000,
+            "tags": ["food", "breakfast", "fiber"],
+            "attributes": {
+                "diet": ["healthy"],
+                "benefits": ["fiber", "focus"],
+                "sleepRange": ["4-6", "6-8"]
+            }
+        },
+        {
+            "id": "snap-food-chicken-sandwich",
+            "brandId": "snap-food",
+            "name": "Snap Food Chicken Sandwich",
+            "price": 110000,
+            "tags": ["food", "protein", "sandwich"],
+            "attributes": {
+                "diet": ["balanced"],
+                "benefits": ["muscle", "energy"],
+                "sleepRange": ["1-4", "4-6", "6-8"]
+            }
+        },
+        {
+            "id": "snap-food-green-smoothie",
+            "brandId": "snap-food",
+            "name": "Snap Food Green Smoothie",
+            "price": 75000,
+            "tags": ["food", "smoothie", "vitamins"],
+            "attributes": {
+                "diet": ["healthy"],
+                "benefits": ["vitamins", "glow"],
+                "sleepRange": ["6-8", "8+"]
+            }
+        },
+        {
+            "id": "snap-food-pumpkin-soup",
+            "brandId": "snap-food",
+            "name": "Snap Food Pumpkin Soup",
+            "price": 80000,
+            "tags": ["food", "soup", "comfort"],
+            "attributes": {
+                "diet": ["healthy"],
+                "benefits": ["comfort", "fiber"],
+                "sleepRange": ["6-8", "8+"]
+            }
+        }
+    ]
+}
