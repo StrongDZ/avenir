@@ -111,31 +111,31 @@ export const OrdersPage: React.FC = () => {
     return (
         <div className="space-y-6">
             <div>
-                <h2 className="text-2xl font-semibold text-white">Order history</h2>
-                <p className="text-sm text-slate-300">Keep track of your past purchases and fulfillment status.</p>
+                <h2 className="text-2xl font-bold text-gray-900">Order history</h2>
+                <p className="text-sm text-gray-600">Keep track of your past purchases and fulfillment status.</p>
             </div>
             <div className="space-y-4">
                 {loading ? (
-                    <div className="rounded-3xl border border-white/5 bg-slate-950/70 p-10">
+                    <div className="rounded-3xl border border-gray-200 bg-white p-10 shadow-sm">
                         <Loader text="Loading your past orders..." />
                     </div>
                 ) : orders.length > 0 ? (
                     orders.map((o) => (
                         <div
                             key={o.id}
-                            className="rounded-3xl border border-white/10 bg-slate-950/70 p-5 shadow-lg shadow-blue-950/30 transition hover:border-white/20"
+                            className="rounded-3xl border border-gray-200 bg-white p-5 shadow-sm transition hover:border-teal-300 hover:shadow-md"
                         >
                             <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                                 <div>
-                                    <div className="mt-1 text-sm uppercase tracking-[0.35em] text-blue-200/70">Order #{o.id.slice(0, 8)}</div>
-                                    <div className="text-lg font-semibold text-white">{new Date(o.createdAt).toLocaleString()}</div>
+                                    <div className="mt-1 text-sm uppercase tracking-[0.35em] text-teal-600">Order #{o.id.slice(0, 8)}</div>
+                                    <div className="text-lg font-semibold text-gray-900">{new Date(o.createdAt).toLocaleString()}</div>
                                 </div>
                                 <div className="space-y-1 text-right">
-                                    <div className="text-sm font-semibold text-blue-300">Total: {o.total.toLocaleString()} VND</div>
-                                    <div className="text-xs uppercase tracking-[0.35em] text-slate-300">Status: {o.status}</div>
+                                    <div className="text-sm font-semibold text-teal-700">Total: {o.total.toLocaleString()} VND</div>
+                                    <div className="text-xs uppercase tracking-[0.35em] text-gray-500">Status: {o.status}</div>
                                 </div>
                             </div>
-                            <div className="mt-3 rounded-2xl border border-white/10 bg-slate-900/60 p-3 text-xs text-slate-300">
+                            <div className="mt-3 rounded-2xl border border-gray-100 bg-gray-50 p-3 text-xs text-gray-600">
                                 Items: {o.items.map((i) => `${i.productId} ×${i.quantity}`).join(", ")}
                             </div>
                             <div className="mt-4 flex flex-wrap gap-2">
@@ -156,9 +156,9 @@ export const OrdersPage: React.FC = () => {
                                 )}
                             </div>
                             {reviewing === o.id && (
-                                <div className="mt-4 space-y-3 rounded-2xl border border-white/10 bg-slate-900/70 p-4 text-sm text-slate-200">
-                                    <div className="font-semibold text-white">Review your experience</div>
-                                    <label className="block text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">
+                                <div className="mt-4 space-y-3 rounded-2xl border border-gray-200 bg-gray-50 p-4 text-sm text-gray-700">
+                                    <div className="font-semibold text-gray-900">Review your experience</div>
+                                    <label className="block text-xs font-semibold uppercase tracking-[0.2em] text-gray-600">
                                         Rating (1-5)
                                         <input
                                             type="number"
@@ -166,16 +166,16 @@ export const OrdersPage: React.FC = () => {
                                             max={5}
                                             value={reviewDraft.rating}
                                             onChange={(e) => setReviewDraft((draft) => ({ ...draft, rating: Number(e.target.value) }))}
-                                            className="mt-1 w-full rounded-full border border-white/10 bg-transparent px-3 py-2 text-sm text-white focus:border-blue-400 focus:outline-none"
+                                            className="mt-1 w-full rounded-full border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 focus:border-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-200"
                                         />
                                     </label>
-                                    <label className="block text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">
+                                    <label className="block text-xs font-semibold uppercase tracking-[0.2em] text-gray-600">
                                         Comment
                                         <textarea
                                             value={reviewDraft.comment}
                                             onChange={(e) => setReviewDraft((draft) => ({ ...draft, comment: e.target.value }))}
                                             rows={3}
-                                            className="mt-1 w-full rounded-2xl border border-white/10 bg-transparent px-3 py-2 text-sm text-white focus:border-blue-400 focus:outline-none"
+                                            className="mt-1 w-full rounded-2xl border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 focus:border-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-200"
                                             placeholder="Share thoughts for bonus points..."
                                         />
                                     </label>
@@ -192,13 +192,13 @@ export const OrdersPage: React.FC = () => {
                         </div>
                     ))
                 ) : (
-                    <div className="rounded-3xl border border-dashed border-white/10 bg-slate-950/60 p-12 text-center text-sm text-slate-300/80">
+                    <div className="rounded-3xl border border-dashed border-gray-300 bg-gray-50 p-12 text-center text-sm text-gray-600">
                         You don&apos;t have any orders yet. Checkout a bundle to see it here.
                     </div>
                 )}
             </div>
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                <div className="text-sm text-slate-300">
+                <div className="text-sm text-gray-600">
                     Page {page} / {Math.max(1, Math.ceil(total / pageSize))} • {total} orders
                 </div>
                 <div className="flex gap-2">

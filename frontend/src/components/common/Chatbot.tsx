@@ -146,29 +146,26 @@ export const Chatbot: React.FC = () => {
     return (
         <>
             <button
-                className="fixed bottom-6 right-6 z-40 flex items-center gap-2 rounded-full bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 px-5 py-3 text-sm font-semibold text-white shadow-2xl shadow-blue-900/40 transition hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-400"
+                className="fixed bottom-6 right-6 z-40 flex items-center gap-2 rounded-full bg-teal-600 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-teal-900/30 transition hover:scale-105 hover:bg-teal-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-teal-400"
                 onClick={toggle}
             >
                 <span className="inline-flex h-2 w-2 animate-ping rounded-full bg-white/70" />
                 {open ? "Close assistant" : "Need a hand?"}
             </button>
             {open && (
-                <div className="fixed bottom-28 right-6 z-40 flex w-96 flex-col overflow-hidden rounded-3xl border border-white/10 bg-slate-950/95 shadow-[0_20px_60px_-15px_rgba(46,91,255,0.45)] backdrop-blur">
-                    <div className="bg-gradient-to-r from-blue-600/80 to-purple-600/60 px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-900/50">
+                <div className="fixed bottom-28 right-6 z-40 flex w-96 flex-col overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-xl">
+                    <div className="bg-gradient-to-r from-teal-600 to-teal-700 px-4 py-3 text-sm font-semibold text-white shadow-md">
                         Avenir Assistant
-                        <div className="text-[11px] font-normal text-blue-50/80">Ask about bundles, nutrition or rewards in seconds.</div>
+                        <div className="text-[11px] font-normal text-teal-50">Ask about bundles, nutrition or rewards in seconds.</div>
                     </div>
-                    <div
-                        className="flex-1 space-y-3 overflow-auto bg-gradient-to-b from-slate-900/70 to-slate-950 px-4 py-3"
-                        style={{ maxHeight: 480 }}
-                    >
+                    <div className="flex-1 space-y-3 overflow-auto bg-gray-50 px-4 py-3" style={{ maxHeight: 480 }}>
                         {messages.map((m, idx) => (
                             <div key={idx} className={`flex flex-col gap-2 ${m.role === "user" ? "items-end" : "items-start"}`}>
                                 <div
                                     className={`max-w-[90%] rounded-2xl px-3 py-2 text-sm leading-relaxed shadow whitespace-pre-wrap ${
                                         m.role === "user"
-                                            ? "bg-gradient-to-r from-blue-500 to-indigo-500 text-white shadow-blue-900/40"
-                                            : "bg-white/10 text-slate-100 shadow-slate-900/40"
+                                            ? "bg-teal-600 text-white shadow-teal-900/30"
+                                            : "bg-white border border-gray-200 text-gray-800 shadow-sm"
                                     }`}
                                 >
                                     {m.content}
@@ -182,19 +179,17 @@ export const Chatbot: React.FC = () => {
                                                     navigate(`/products/${product.id}`);
                                                     setOpen(false);
                                                 }}
-                                                className="group rounded-xl border border-white/20 bg-slate-900/80 p-3 text-left transition hover:border-blue-400/60 hover:bg-slate-800/90 hover:shadow-lg hover:shadow-blue-900/20"
+                                                className="group rounded-xl border border-gray-200 bg-white p-3 text-left transition hover:border-teal-400 hover:bg-teal-50 hover:shadow-md"
                                             >
                                                 <div className="flex items-start justify-between gap-2">
                                                     <div className="flex-1 min-w-0">
-                                                        <div className="text-xs uppercase tracking-[0.2em] text-blue-300/70 mb-1">
-                                                            {product.brandId}
-                                                        </div>
-                                                        <div className="text-sm font-semibold text-white truncate group-hover:text-blue-300 transition">
+                                                        <div className="text-xs uppercase tracking-[0.2em] text-teal-600 mb-1">{product.brandId}</div>
+                                                        <div className="text-sm font-semibold text-gray-900 truncate group-hover:text-teal-700 transition">
                                                             {product.name}
                                                         </div>
-                                                        <div className="text-xs text-slate-300 mt-1">{formatCurrencyVnd(product.price)}</div>
+                                                        <div className="text-xs text-gray-600 mt-1">{formatCurrencyVnd(product.price)}</div>
                                                     </div>
-                                                    <div className="text-xs text-blue-400 opacity-0 group-hover:opacity-100 transition">→</div>
+                                                    <div className="text-xs text-teal-600 opacity-0 group-hover:opacity-100 transition">→</div>
                                                 </div>
                                             </button>
                                         ))}
@@ -202,11 +197,11 @@ export const Chatbot: React.FC = () => {
                                 )}
                             </div>
                         ))}
-                        {loading && <div className="text-xs text-blue-200/80">Thinking...</div>}
+                        {loading && <div className="text-xs text-teal-600">Thinking...</div>}
                     </div>
-                    <div className="flex items-center gap-2 border-t border-white/10 bg-slate-950/80 px-3 py-2">
+                    <div className="flex items-center gap-2 border-t border-gray-200 bg-white px-3 py-2">
                         <input
-                            className="flex-1 rounded-full border border-white/10 bg-white/5 px-3 py-2 text-sm text-white placeholder:text-slate-400 focus:border-blue-400 focus:outline-none"
+                            className="flex-1 rounded-full border border-gray-300 bg-gray-50 px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:border-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-200"
                             value={input}
                             onChange={(e) => setInput(e.target.value)}
                             placeholder="Ask about products..."
@@ -215,7 +210,7 @@ export const Chatbot: React.FC = () => {
                             }}
                         />
                         <button
-                            className="inline-flex items-center justify-center rounded-full bg-blue-500 px-3 py-2 text-sm font-semibold text-white transition hover:bg-blue-600 disabled:opacity-50"
+                            className="inline-flex items-center justify-center rounded-full bg-teal-600 px-3 py-2 text-sm font-semibold text-white transition hover:bg-teal-700 disabled:opacity-50"
                             onClick={send}
                             disabled={loading}
                         >

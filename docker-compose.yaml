@@ -25,6 +25,13 @@ services:
             target: production-stage
         image: avenir-backend
         container_name: avenir-backend
+        environment:
+            PG_HOST: ${PG_HOST}
+            PG_PORT: ${PG_PORT}
+            PG_USER: ${PG_USER}
+            PG_PASSWORD: ${PG_PASSWORD}
+            PG_DATABASE: ${PG_DATABASE}
+            PG_SSL: ${PG_SSL}
         env_file:
             - ./backend/.env
         ports:
@@ -52,6 +59,13 @@ services:
     init-db:
         image: avenir-backend
         container_name: avenir-init-db
+        environment:
+            PG_HOST: ${PG_HOST}
+            PG_PORT: ${PG_PORT}
+            PG_USER: ${PG_USER}
+            PG_PASSWORD: ${PG_PASSWORD}
+            PG_DATABASE: ${PG_DATABASE}
+            PG_SSL: ${PG_SSL}
         env_file:
             - ./backend/.env
         depends_on:

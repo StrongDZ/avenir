@@ -16,12 +16,12 @@ export const HealthInputForm: React.FC<Props> = ({ value, onChange, onSubmit, lo
                 e.preventDefault();
                 onSubmit();
             }}
-            className="grid grid-cols-2 gap-3 mb-4"
+            className="grid grid-cols-2 gap-4 mb-4"
         >
-            <label>
-                Skin Type
+            <label className="block">
+                <span className="mb-2 block text-sm font-semibold text-gray-700">Skin Type</span>
                 <select
-                    className="border p-2 w-full bg-white text-black"
+                    className="w-full rounded-full border border-gray-300 bg-white px-4 py-2 text-sm text-gray-900 focus:border-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-200"
                     value={value.skinType}
                     onChange={(e) => onChange({ skinType: e.target.value })}
                 >
@@ -32,10 +32,10 @@ export const HealthInputForm: React.FC<Props> = ({ value, onChange, onSubmit, lo
                     ))}
                 </select>
             </label>
-            <label>
-                Stress Level
+            <label className="block">
+                <span className="mb-2 block text-sm font-semibold text-gray-700">Stress Level</span>
                 <select
-                    className="border p-2 w-full bg-white text-black"
+                    className="w-full rounded-full border border-gray-300 bg-white px-4 py-2 text-sm text-gray-900 focus:border-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-200"
                     value={value.stressLevel}
                     onChange={(e) => onChange({ stressLevel: e.target.value })}
                 >
@@ -46,10 +46,10 @@ export const HealthInputForm: React.FC<Props> = ({ value, onChange, onSubmit, lo
                     ))}
                 </select>
             </label>
-            <label>
-                Diet Habit
+            <label className="block">
+                <span className="mb-2 block text-sm font-semibold text-gray-700">Diet Habit</span>
                 <select
-                    className="border p-2 w-full bg-white text-black"
+                    className="w-full rounded-full border border-gray-300 bg-white px-4 py-2 text-sm text-gray-900 focus:border-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-200"
                     value={value.dietHabit}
                     onChange={(e) => onChange({ dietHabit: e.target.value })}
                 >
@@ -60,10 +60,10 @@ export const HealthInputForm: React.FC<Props> = ({ value, onChange, onSubmit, lo
                     ))}
                 </select>
             </label>
-            <label>
-                Sleep Hours
+            <label className="block">
+                <span className="mb-2 block text-sm font-semibold text-gray-700">Sleep Hours</span>
                 <select
-                    className="border p-2 w-full bg-white text-black"
+                    className="w-full rounded-full border border-gray-300 bg-white px-4 py-2 text-sm text-gray-900 focus:border-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-200"
                     value={value.sleepHours}
                     onChange={(e) => onChange({ sleepHours: e.target.value as HealthInput["sleepHours"] })}
                 >
@@ -79,10 +79,10 @@ export const HealthInputForm: React.FC<Props> = ({ value, onChange, onSubmit, lo
                     ))}
                 </select>
             </label>
-            <label>
-                Wellness Goal
+            <label className="block">
+                <span className="mb-2 block text-sm font-semibold text-gray-700">Wellness Goal</span>
                 <select
-                    className="border p-2 w-full bg-white text-black"
+                    className="w-full rounded-full border border-gray-300 bg-white px-4 py-2 text-sm text-gray-900 focus:border-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-200"
                     value={value.wellnessGoal}
                     onChange={(e) => onChange({ wellnessGoal: e.target.value })}
                 >
@@ -94,7 +94,9 @@ export const HealthInputForm: React.FC<Props> = ({ value, onChange, onSubmit, lo
                 </select>
             </label>
             <div className="col-span-2">
-                <Button disabled={loading}>{loading ? "Loading..." : "Get Recommendations"}</Button>
+                <Button disabled={loading} className="w-full">
+                    {loading ? "Loading..." : "Get Recommendations"}
+                </Button>
             </div>
         </form>
     );

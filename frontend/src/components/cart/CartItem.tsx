@@ -9,8 +9,8 @@ interface Props {
 
 export const CartItem: React.FC<Props> = ({ productId, quantity, onRemove }) => {
     return (
-        <div className="border p-2 flex items-center justify-between rounded">
-            <div>
+        <div className="flex items-center justify-between rounded-lg border border-gray-200 bg-white p-3 shadow-sm">
+            <div className="text-gray-900">
                 {productId} × {quantity}
             </div>
             <Button variant="danger" onClick={() => onRemove(productId)}>

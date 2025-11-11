@@ -26,12 +26,12 @@ export const CartPage: React.FC = () => {
         return (
             <div className="space-y-6">
                 <div>
-                    <h2 className="text-2xl font-semibold text-white">Shopping Cart</h2>
-                    <p className="text-sm text-slate-300">Your cart is empty</p>
+                    <h2 className="text-2xl font-bold text-gray-900">Shopping Cart</h2>
+                    <p className="text-sm text-gray-600">Your cart is empty</p>
                 </div>
-                <div className="rounded-3xl border border-white/10 bg-slate-950/70 p-12 text-center shadow-2xl shadow-blue-950/30">
-                    <div className="text-4xl mb-4">🛒</div>
-                    <p className="text-slate-200 mb-6">Looks like you haven&apos;t added anything yet.</p>
+                <div className="rounded-3xl border border-gray-200 bg-white p-12 text-center shadow-sm">
+                    <div className="mb-4 text-4xl">🛒</div>
+                    <p className="mb-6 text-gray-700">Looks like you haven&apos;t added anything yet.</p>
                     <Button onClick={() => navigate("/products")}>Browse Products</Button>
                 </div>
             </div>
@@ -39,10 +39,10 @@ export const CartPage: React.FC = () => {
     }
 
     return (
-        <div className="space-y-8">
+        <div className="space-y-6 sm:space-y-8">
             <div>
-                <h2 className="text-2xl font-semibold text-white">Shopping Cart</h2>
-                <p className="text-sm text-slate-300">
+                <h2 className="text-2xl font-bold text-gray-900">Shopping Cart</h2>
+                <p className="text-sm text-gray-600">
                     {itemCount} {itemCount === 1 ? "item" : "items"} in your cart
                 </p>
             </div>
@@ -52,21 +52,21 @@ export const CartPage: React.FC = () => {
                     {items.map((item) => (
                         <div
                             key={item.productId}
-                            className="rounded-3xl border border-white/10 bg-slate-950/70 p-6 shadow-lg shadow-blue-950/30 transition hover:border-white/20 hover:shadow-blue-900/30"
+                            className="rounded-3xl border border-gray-200 bg-white p-4 shadow-sm transition hover:border-teal-300 hover:shadow-md sm:p-6"
                         >
                             <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
                                 <div className="flex-1">
-                                    <div className="text-lg font-semibold text-white">{item.product?.name || item.productId}</div>
-                                    <div className="text-xs uppercase tracking-[0.3em] text-blue-200/70 mt-1">{item.product?.brandId || ""}</div>
+                                    <div className="text-lg font-semibold text-gray-900">{item.product?.name || item.productId}</div>
+                                    <div className="mt-1 text-xs uppercase tracking-[0.3em] text-teal-600">{item.product?.brandId || ""}</div>
                                     <div className="mt-4 flex flex-wrap items-center gap-4">
-                                        <div className="text-sm font-semibold text-blue-300">
+                                        <div className="text-sm font-semibold text-teal-700">
                                             {item.product?.price ? formatCurrencyVnd(item.product.price) : "N/A"}
                                         </div>
                                         <div className="flex items-center gap-2">
-                                            <span className="text-xs uppercase tracking-[0.3em] text-slate-400">Qty</span>
-                                            <div className="flex items-center overflow-hidden rounded-full border border-white/10 bg-slate-900/70">
+                                            <span className="text-xs uppercase tracking-[0.3em] text-gray-500">Qty</span>
+                                            <div className="flex items-center overflow-hidden rounded-full border border-gray-300 bg-gray-50">
                                                 <button
-                                                    className="px-3 py-2 text-sm text-white transition hover:bg-white/10 disabled:opacity-40"
+                                                    className="px-3 py-2 text-sm text-gray-700 transition hover:bg-teal-50 hover:text-teal-700 disabled:opacity-40"
                                                     onClick={() => updateQuantity(item.productId, Math.max(1, item.quantity - 1))}
                                                     disabled={item.quantity <= 1}
                                                 >
@@ -80,17 +80,17 @@ export const CartPage: React.FC = () => {
                                                         const val = Number(e.target.value);
                                                         if (val > 0) updateQuantity(item.productId, val);
                                                     }}
-                                                    className="w-16 bg-transparent px-2 py-1 text-center text-sm text-white focus:outline-none focus:ring-1 focus:ring-blue-400"
+                                                    className="w-16 bg-transparent px-2 py-1 text-center text-sm text-gray-900 focus:outline-none focus:ring-1 focus:ring-teal-500"
                                                 />
                                                 <button
-                                                    className="px-3 py-2 text-sm text-white transition hover:bg-white/10"
+                                                    className="px-3 py-2 text-sm text-gray-700 transition hover:bg-teal-50 hover:text-teal-700"
                                                     onClick={() => updateQuantity(item.productId, item.quantity + 1)}
                                                 >
                                                     +
                                                 </button>
                                             </div>
                                         </div>
-                                        <div className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-400">
+                                        <div className="text-xs font-semibold uppercase tracking-[0.3em] text-gray-500">
                                             Subtotal: {item.product?.price ? formatCurrencyVnd(item.product.price * item.quantity) : "N/A"}
                                         </div>
                                     </div>
@@ -104,20 +104,20 @@ export const CartPage: React.FC = () => {
                 </div>
 
                 <div>
-                    <div className="sticky top-4 rounded-3xl border border-white/10 bg-slate-950/80 p-6 shadow-2xl shadow-blue-950/30">
+                    <div className="sticky top-4 rounded-3xl border border-gray-200 bg-white p-6 shadow-sm">
                         <div className="space-y-4">
                             <div>
-                                <div className="text-xs uppercase tracking-[0.35em] text-blue-200/70">Order summary</div>
-                                <div className="text-2xl font-semibold text-white">{formatCurrencyVnd(subtotal)}</div>
+                                <div className="text-xs uppercase tracking-[0.35em] text-teal-600">Order summary</div>
+                                <div className="text-2xl font-semibold text-gray-900">{formatCurrencyVnd(subtotal)}</div>
                             </div>
-                            <div className="space-y-3 text-sm text-slate-300">
+                            <div className="space-y-3 text-sm text-gray-600">
                                 <div className="flex justify-between">
-                                    <span className="text-slate-400">Subtotal</span>
-                                    <span className="font-medium text-white">{formatCurrencyVnd(subtotal)}</span>
+                                    <span className="text-gray-500">Subtotal</span>
+                                    <span className="font-medium text-gray-900">{formatCurrencyVnd(subtotal)}</span>
                                 </div>
-                                <div className="flex justify-between border-t border-white/5 pt-3">
-                                    <span className="font-semibold text-white">Total</span>
-                                    <span className="font-semibold text-blue-300">{formatCurrencyVnd(subtotal)}</span>
+                                <div className="flex justify-between border-t border-gray-200 pt-3">
+                                    <span className="font-semibold text-gray-900">Total</span>
+                                    <span className="font-semibold text-teal-700">{formatCurrencyVnd(subtotal)}</span>
                                 </div>
                             </div>
                             <Button onClick={() => navigate("/checkout")} className="w-full">

@@ -26,20 +26,20 @@ export const RecommendationPage: React.FC = () => {
     return (
         <div className="space-y-6">
             <div>
-                <h2 className="text-2xl font-semibold text-white">Health-based Recommendations</h2>
-                <p className="text-sm text-slate-300">Answer a few quick questions to personalize your picks.</p>
+                <h2 className="text-2xl font-bold text-gray-900">Health-based Recommendations</h2>
+                <p className="text-sm text-gray-600">Answer a few quick questions to personalize your picks.</p>
             </div>
-            <div className="rounded-3xl border border-white/10 bg-slate-950/70 p-6 shadow-2xl shadow-blue-950/30">
+            <div className="rounded-3xl border border-gray-200 bg-white p-6 shadow-sm">
                 <HealthInputForm value={form} onChange={update} onSubmit={() => fetchRecommendations(form)} loading={loading} />
             </div>
             {data && (
-                <div className="space-y-4">
+                <div className="space-y-6">
                     <div>
-                        <h3 className="mb-2 text-lg font-semibold text-white">Primary</h3>
+                        <h3 className="mb-4 text-lg font-semibold text-gray-900">Primary</h3>
                         <ProductList products={data.primary} onAdd={handleAdd} />
                     </div>
                     <div>
-                        <h3 className="mb-2 text-lg font-semibold text-white">Bundle Suggestions</h3>
+                        <h3 className="mb-4 text-lg font-semibold text-gray-900">Bundle Suggestions</h3>
                         <BundleSuggestion bundles={data.bundles} onAdd={handleAdd} />
                     </div>
                 </div>

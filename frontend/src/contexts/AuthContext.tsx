@@ -4,6 +4,7 @@ import { authService } from "../services/authService";
 interface AuthUser {
     id: string;
     username?: string;
+    isGuest?: boolean;
 }
 
 interface AuthContextValue {
@@ -11,6 +12,7 @@ interface AuthContextValue {
     loading: boolean;
     login: (username: string, password: string) => Promise<void>;
     register: (username: string, password: string) => Promise<void>;
+    loginAsGuest: () => void;
     logout: () => void;
 }
 
@@ -21,12 +23,15 @@ function persistUser(user: AuthUser | null, token?: string) {
         localStorage.removeItem("userId");
         localStorage.removeItem("username");
         localStorage.removeItem("token");
+        localStorage.removeItem("isGuest");
         return;
     }
     localStorage.setItem("userId", user.id);
     if (user.username) localStorage.setItem("username", user.username);
     else localStorage.removeItem("username");
     if (token) localStorage.setItem("token", token);
+    if (user.isGuest) localStorage.setItem("isGuest", "true");
+    else localStorage.removeItem("isGuest");
 }
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -42,6 +47,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         const storedId = localStorage.getItem("userId");
         const storedUsername = localStorage.getItem("username") || undefined;
         const token = localStorage.getItem("token");
+        const isGuest = localStorage.getItem("isGuest") === "true";
+
+        if (storedId && isGuest) {
+            setUser({ id: storedId, username: storedUsername, isGuest: true });
+            setLoading(false);
+            return;
+        }
+
         if (storedId) {
             setUser({ id: storedId, username: storedUsername });
         }
@@ -49,7 +62,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             authService
                 .me()
                 .then((me) => {
-                    if (me?.id) applyUser({ id: me.id, username: me.username });
+                    if (me?.id) applyUser({ id: me.id, username: me.username, isGuest: false });
                 })
                 .catch(() => {
                     applyUser(null);
@@ -63,7 +76,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const login = React.useCallback(
         async (username: string, password: string) => {
             const res = await authService.login(username, password);
-            const authUser: AuthUser = { id: res.user.id, username: res.user.username ?? username };
+            const authUser: AuthUser = { id: res.user.id, username: res.user.username ?? username, isGuest: false };
             applyUser(authUser, res.token);
         },
         [applyUser]
@@ -72,11 +85,17 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const register = React.useCallback(
         async (username: string, password: string) => {
             const res = await authService.register(username, password);
-            const authUser: AuthUser = { id: res.user.id, username: res.user.username ?? username };
+            const authUser: AuthUser = { id: res.user.id, username: res.user.username ?? username, isGuest: false };
             applyUser(authUser, res.token);
         },
         [applyUser]
     );
+
+    const loginAsGuest = React.useCallback(() => {
+        const guestId = `guest-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+        const authUser: AuthUser = { id: guestId, isGuest: true };
+        applyUser(authUser);
+    }, [applyUser]);
 
     const logout = React.useCallback(() => {
         applyUser(null);
@@ -88,9 +107,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             loading,
             login,
             register,
+            loginAsGuest,
             logout,
         }),
-        [user, loading, login, register, logout]
+        [user, loading, login, register, loginAsGuest, logout]
     );
 
     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
