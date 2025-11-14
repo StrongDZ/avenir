@@ -4,7 +4,7 @@ import { Product } from "../entities/Product";
 export class ProductRepository {
     public async findAll(): Promise<Product[]> {
         return withClient(async (client) => {
-            const r = await client.query("select id, brand_id, name, price, tags, attributes from products order by name asc");
+            const r = await client.query("select id, brand_id, name, price, tags, attributes, description from products order by name asc");
             return r.rows.map(this.mapRow);
         });
     }
@@ -36,7 +36,7 @@ export class ProductRepository {
 
             const where = conditions.length > 0 ? `where ${conditions.join(" and ")}` : ``;
             const countSql = `select count(*)::int as count from products ${where}`;
-            const listSql = `select id, brand_id, name, price, tags, attributes
+            const listSql = `select id, brand_id, name, price, tags, attributes, description
                              from products ${where}
                              order by name asc
                              limit $${argIndex} offset $${argIndex + 1}`;
@@ -54,7 +54,7 @@ export class ProductRepository {
 
     public async findById(id: string): Promise<Product | null> {
         return withClient(async (client) => {
-            const r = await client.query("select id, brand_id, name, price, tags, attributes from products where id = $1", [id]);
+            const r = await client.query("select id, brand_id, name, price, tags, attributes, description from products where id = $1", [id]);
             if (r.rows.length === 0) return null;
             return this.mapRow(r.rows[0]);
         });
@@ -63,7 +63,7 @@ export class ProductRepository {
     public async findByIds(ids: string[]): Promise<Product[]> {
         if (ids.length === 0) return [];
         return withClient(async (client) => {
-            const r = await client.query("select id, brand_id, name, price, tags, attributes from products where id = any($1)", [ids]);
+            const r = await client.query("select id, brand_id, name, price, tags, attributes, description from products where id = any($1)", [ids]);
             return r.rows.map(this.mapRow);
         });
     }
@@ -76,7 +76,7 @@ export class ProductRepository {
         wellnessGoal?: string;
     }): Promise<Product[]> {
         return withClient(async (client) => {
-            const r = await client.query(`select id, brand_id, name, price, tags, attributes from products`);
+            const r = await client.query(`select id, brand_id, name, price, tags, attributes, description from products`);
             const all = r.rows.map(this.mapRow);
             return all.filter((p: Product) => {
                 const a = p.attributes || {};
@@ -107,5 +107,6 @@ export class ProductRepository {
         price: row.price,
         tags: row.tags ?? [],
         attributes: row.attributes ?? {},
+        description: row.description ?? undefined,
     });
 }

@@ -5,4 +5,5 @@ export interface Product {
     price: number; // VND
     tags: string[];
     attributes: Record<string, any>;
+    description?: string;
 }

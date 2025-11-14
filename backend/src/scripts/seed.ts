@@ -17,7 +17,8 @@ async function ensureSchema() {
             name text not null,
             price integer not null,
             tags jsonb not null default '[]',
-            attributes jsonb not null default '{}'::jsonb
+            attributes jsonb not null default '{}'::jsonb,
+            description text
         );
         create table if not exists users (
             id text primary key,
@@ -26,6 +27,9 @@ async function ensureSchema() {
         alter table users add column if not exists username text;
 create unique index if not exists users_username_unique on users(username);
         alter table users add column if not exists password_hash text;
+        alter table users add column if not exists email text;
+        alter table users add column if not exists phone text;
+        alter table users add column if not exists address text;
         create table if not exists carts (
             user_id text primary key references users(id),
             updated_at timestamptz not null default now()
@@ -98,10 +102,10 @@ async function seedData() {
             }
             for (const p of products) {
                 await client.query(
-                    `insert into products (id, brand_id, name, price, tags, attributes)
-                     values ($1, $2, $3, $4, $5, $6)
-                     on conflict (id) do update set brand_id = excluded.brand_id, name = excluded.name, price = excluded.price, tags = excluded.tags, attributes = excluded.attributes`,
-                    [p.id, p.brandId, p.name, p.price, JSON.stringify(p.tags ?? []), JSON.stringify(p.attributes ?? {})]
+                    `insert into products (id, brand_id, name, price, tags, attributes, description)
+                     values ($1, $2, $3, $4, $5, $6, $7)
+                     on conflict (id) do update set brand_id = excluded.brand_id, name = excluded.name, price = excluded.price, tags = excluded.tags, attributes = excluded.attributes, description = excluded.description`,
+                    [p.id, p.brandId, p.name, p.price, JSON.stringify(p.tags ?? []), JSON.stringify(p.attributes ?? {}), p.description ?? null]
                 );
             }
             await client.query("commit");

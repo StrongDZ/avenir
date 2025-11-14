@@ -13,6 +13,21 @@ import Img3 from "../../statics/review-menu-phe-la-6.jpg";
 import Img4 from "../../statics/Anh-avartar-cocoon.jpg";
 import Img5 from "../../statics/20210615._head_banner_web__b8093e15a30d434c98f7623b1e48314c.jpg";
 
+// Import product images
+import ProductImg1 from "../../statics/products/20210615._head_banner_web__b8093e15a30d434c98f7623b1e48314c.jpg";
+import ProductImg2 from "../../statics/Anh-avartar-cocoon.jpg";
+import ProductImg3 from "../../statics/photo-3-1604502916022324847175.jpg";
+import ProductImg4 from "../../statics/review-menu-phe-la-3.jpg";
+import ProductImg5 from "../../statics/review-menu-phe-la-6.jpg";
+
+const productImages = [ProductImg1, ProductImg2, ProductImg3, ProductImg4, ProductImg5];
+
+// Helper to get random image for a product
+const getProductImage = (productId: string): string => {
+    const index = productId.split("").reduce((acc, char) => acc + char.charCodeAt(0), 0);
+    return productImages[index % productImages.length];
+};
+
 const categories = [
     { id: "combo", name: "Combo", icon: "🍱", color: "bg-green-100 text-green-700" },
     { id: "drinks", name: "Drinks", icon: "🥤", color: "bg-orange-100 text-orange-700" },
@@ -67,6 +82,9 @@ export const HomePage: React.FC = () => {
         e.preventDefault();
         if (searchQuery.trim()) {
             navigate(`/products?q=${encodeURIComponent(searchQuery.trim())}`);
+        } else {
+            // If empty search, navigate to products page to show suggestions
+            navigate(`/products`);
         }
     };
 
@@ -191,33 +209,38 @@ export const HomePage: React.FC = () => {
                     </div>
                 ) : (
                     <div className="flex gap-4 overflow-x-auto pb-2 scrollbar-hide">
-                        {featuredProducts.map((product) => (
-                            <div
-                                key={product.id}
-                                className="min-w-[160px] flex-shrink-0 rounded-2xl border border-gray-200 bg-white p-3 shadow-sm transition hover:shadow-md cursor-pointer"
-                                onClick={() => navigate(`/products/${product.id}`)}
-                            >
-                                <div className="mb-2 h-32 rounded-lg bg-gray-100"></div>
-                                <h3 className="mb-1 text-sm font-semibold text-gray-900 line-clamp-2">{product.name}</h3>
-                                <div className="mb-2 flex items-center gap-1">
-                                    <svg className="h-4 w-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-                                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                                    </svg>
-                                    <span className="text-xs text-gray-600">4.6</span>
-                                    <span className="text-xs text-gray-400">(86 Reviews)</span>
-                                </div>
-                                <div className="mb-2 text-base font-bold text-teal-700">{formatCurrencyVnd(product.price)}</div>
-                                <button
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        handleAddToCart(product.id);
-                                    }}
-                                    className="w-full rounded-lg bg-teal-600 px-3 py-2 text-xs font-semibold text-white transition hover:bg-teal-700"
+                        {featuredProducts.map((product) => {
+                            const productImage = getProductImage(product.id);
+                            return (
+                                <div
+                                    key={product.id}
+                                    className="min-w-[160px] flex-shrink-0 rounded-2xl border border-gray-200 bg-white p-3 shadow-sm transition hover:shadow-md cursor-pointer"
+                                    onClick={() => navigate(`/products/${product.id}`)}
                                 >
-                                    Add to Cart
-                                </button>
-                            </div>
-                        ))}
+                                    <div className="mb-2 h-32 w-full overflow-hidden rounded-lg bg-gray-100">
+                                        <img src={productImage} alt={product.name} className="h-full w-full object-cover" />
+                                    </div>
+                                    <h3 className="mb-1 text-sm font-semibold text-gray-900 line-clamp-2">{product.name}</h3>
+                                    <div className="mb-2 flex items-center gap-1">
+                                        <svg className="h-4 w-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                        <span className="text-xs text-gray-600">4.6</span>
+                                        <span className="text-xs text-gray-400">(86 Reviews)</span>
+                                    </div>
+                                    <div className="mb-2 text-base font-bold text-teal-700">{formatCurrencyVnd(product.price)}</div>
+                                    <button
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            handleAddToCart(product.id);
+                                        }}
+                                        className="w-full rounded-lg bg-teal-600 px-3 py-2 text-xs font-semibold text-white transition hover:bg-teal-700"
+                                    >
+                                        Add to Cart
+                                    </button>
+                                </div>
+                            );
+                        })}
                     </div>
                 )}
             </section>

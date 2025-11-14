@@ -17,14 +17,18 @@ export class AuthController {
 
     public async register(req: Request, res: Response) {
         try {
-            const { username, password } = req.body || {};
+            const { username, password, confirmPassword, email, phone, address } = req.body || {};
             if (!username || !password) throw new Error("username and password are required");
+            if (!email) throw new Error("email is required");
+            if (!phone) throw new Error("phone is required");
+            if (!address) throw new Error("address is required");
+            if (password !== confirmPassword) throw new Error("passwords do not match");
             const normalizedUsername = String(username).trim();
             if (normalizedUsername.length < 3) throw new Error("username must be at least 3 characters");
             const existing = await this.userRepo.findByUsername(normalizedUsername);
             if (existing) throw new Error("username already registered");
             const hash = await bcrypt.hash(password, 10);
-            const user = await this.userRepo.createWithPassword(normalizedUsername, hash);
+            const user = await this.userRepo.createWithPassword(normalizedUsername, hash, email, phone, address);
             const token = jwt.sign({ sub: user.id, username: user.username }, JWT_SECRET, { expiresIn: "7d" });
             sendRes(res, null, { token, user });
         } catch (e: any) {

@@ -1,23 +1,8 @@
-import { Link, NavLink, useNavigate, useLocation } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import React from "react";
 import { useCartContext } from "../../contexts/CartContext";
 import { useAuth } from "../../contexts/AuthContext";
 import { Chatbot } from "./Chatbot";
-
-const navItems = [
-    { label: "Products", to: "/products", icon: "M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" },
-    {
-        label: "Cart",
-        to: "/cart",
-        badge: true,
-        icon: "M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z",
-    },
-    {
-        label: "Smart match",
-        to: "/recommend",
-        icon: "M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z",
-    },
-];
 
 export const Shell: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const { items } = useCartContext();
@@ -77,7 +62,7 @@ export const Shell: React.FC<{ children: React.ReactNode }> = ({ children }) => 
             </div>
 
             {/* Header */}
-            <header className="sticky top-0 z-30 border-b border-gray-200 bg-white/95 backdrop-blur-sm shadow-sm">
+            <header className="relative sticky top-0 z-30 border-b border-gray-200 bg-white/95 backdrop-blur-sm shadow-sm">
                 <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
                     {/* Logo */}
                     <Link to="/" className="flex items-center gap-2 sm:gap-3">
@@ -87,40 +72,41 @@ export const Shell: React.FC<{ children: React.ReactNode }> = ({ children }) => 
                         <div className="text-sm font-bold text-teal-700 sm:text-base">AVENIR</div>
                     </Link>
 
-                    {/* Desktop navigation */}
-                    <nav className="hidden items-center gap-3 text-sm font-medium sm:flex">
-                        {navItems.map((item) => (
-                            <NavLink
-                                key={item.to}
-                                to={item.to}
-                                className={({ isActive }) =>
-                                    [
-                                        "relative rounded-full px-4 py-2 transition",
-                                        isActive ? "bg-teal-100 text-teal-700 font-semibold" : "text-gray-600 hover:text-teal-700 hover:bg-teal-50",
-                                    ].join(" ")
-                                }
-                            >
-                                <span className="flex items-center gap-2">
-                                    {item.label}
-                                    {item.badge && cartCount > 0 && (
-                                        <span className="inline-flex h-5 min-w-[1.25rem] items-center justify-center rounded-full bg-teal-600 text-[10px] font-semibold text-white">
-                                            {cartCount}
-                                        </span>
-                                    )}
-                                </span>
-                            </NavLink>
-                        ))}
+                    {/* Navigation Links - Desktop */}
+                    <nav className="hidden items-center gap-6 md:flex">
+                        <Link
+                            to="/"
+                            className={`text-sm font-medium transition hover:text-teal-700 ${
+                                location.pathname === "/" ? "text-teal-700" : "text-gray-700"
+                            }`}
+                        >
+                            Home page
+                        </Link>
+                        <Link
+                            to="/products"
+                            className={`text-sm font-medium transition hover:text-teal-700 ${
+                                location.pathname === "/products" ? "text-teal-700" : "text-gray-700"
+                            }`}
+                        >
+                            Search products
+                        </Link>
                     </nav>
 
-                    {/* Mobile & Desktop: Right side icons */}
+                    {/* Right side icons */}
                     <div className="flex items-center gap-2">
                         {/* Mobile: Hamburger menu button */}
                         <button
                             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                            className="inline-flex items-center justify-center rounded-full p-2 text-teal-700 hover:bg-teal-50 sm:hidden"
+                            className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white border-2 border-teal-200 shadow-md text-teal-700 hover:bg-teal-50 hover:border-teal-300 transition-all sm:hidden"
                             aria-label="Menu"
                         >
-                            <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg
+                                className="h-5 w-5 flex-shrink-0"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                                preserveAspectRatio="xMidYMid meet"
+                            >
                                 {mobileMenuOpen ? (
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                                 ) : (
@@ -129,11 +115,8 @@ export const Shell: React.FC<{ children: React.ReactNode }> = ({ children }) => 
                             </svg>
                         </button>
 
-                        {/* Desktop: Cart icon */}
-                        <Link
-                            to="/cart"
-                            className="hidden relative items-center justify-center rounded-full p-2 text-teal-700 hover:bg-teal-50 sm:inline-flex"
-                        >
+                        {/* Cart icon - visible on all screen sizes */}
+                        <Link to="/cart" className="relative inline-flex items-center justify-center rounded-full p-2 text-teal-700 hover:bg-teal-50">
                             <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path
                                     strokeLinecap="round"
@@ -214,35 +197,81 @@ export const Shell: React.FC<{ children: React.ReactNode }> = ({ children }) => 
                         )}
                     </div>
                 </div>
+            </header>
 
-                {/* Mobile menu dropdown */}
-                {mobileMenuOpen && (
-                    <div ref={mobileMenuRef} className="border-t border-gray-200 bg-white sm:hidden">
-                        <div className="mx-auto max-w-6xl px-4 py-3">
+            {/* Mobile Menu */}
+            {mobileMenuOpen && (
+                <div className="fixed inset-0 z-40 bg-black/20 backdrop-blur-sm md:hidden" onClick={() => setMobileMenuOpen(false)}>
+                    <div ref={mobileMenuRef} className="absolute right-0 top-0 h-full w-64 bg-white shadow-xl" onClick={(e) => e.stopPropagation()}>
+                        <div className="flex flex-col border-b border-gray-200 p-4">
+                            <div className="mb-4 flex items-center justify-between">
+                                <div className="text-sm font-bold text-teal-700">Menu</div>
+                                <button onClick={() => setMobileMenuOpen(false)} className="rounded-full p-1 text-gray-500 hover:bg-gray-100">
+                                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                </button>
+                            </div>
                             <nav className="space-y-2">
-                                {navItems.map((item) => (
-                                    <Link
-                                        key={item.to}
-                                        to={item.to}
-                                        className="flex items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium text-gray-700 transition hover:bg-teal-50 hover:text-teal-700"
-                                        onClick={() => setMobileMenuOpen(false)}
-                                    >
-                                        <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={item.icon} />
-                                        </svg>
-                                        <span>{item.label}</span>
-                                        {item.badge && cartCount > 0 && (
-                                            <span className="ml-auto inline-flex h-5 min-w-[1.25rem] items-center justify-center rounded-full bg-teal-600 text-[10px] font-semibold text-white">
-                                                {cartCount}
-                                            </span>
-                                        )}
-                                    </Link>
-                                ))}
+                                <Link
+                                    to="/"
+                                    onClick={() => setMobileMenuOpen(false)}
+                                    className={`block rounded-lg px-4 py-2 text-sm font-medium transition ${
+                                        location.pathname === "/" ? "bg-teal-50 text-teal-700" : "text-gray-700 hover:bg-gray-50"
+                                    }`}
+                                >
+                                    Home page
+                                </Link>
+                                <Link
+                                    to="/products"
+                                    onClick={() => setMobileMenuOpen(false)}
+                                    className={`block rounded-lg px-4 py-2 text-sm font-medium transition ${
+                                        location.pathname === "/products" ? "bg-teal-50 text-teal-700" : "text-gray-700 hover:bg-gray-50"
+                                    }`}
+                                >
+                                    Search products
+                                </Link>
                             </nav>
                         </div>
+                        {user && (
+                            <div className="border-t border-gray-200 p-4">
+                                <div className="mb-2 text-xs uppercase tracking-[0.2em] text-gray-400">Account</div>
+                                {!isGuest && (
+                                    <>
+                                        <button
+                                            onClick={() => {
+                                                setMobileMenuOpen(false);
+                                                navigate("/account");
+                                            }}
+                                            className="block w-full rounded-lg px-4 py-2 text-left text-sm text-gray-700 transition hover:bg-gray-50"
+                                        >
+                                            Account info
+                                        </button>
+                                        <button
+                                            onClick={() => {
+                                                setMobileMenuOpen(false);
+                                                navigate("/orders");
+                                            }}
+                                            className="block w-full rounded-lg px-4 py-2 text-left text-sm text-gray-700 transition hover:bg-gray-50"
+                                        >
+                                            Order history
+                                        </button>
+                                    </>
+                                )}
+                                <button
+                                    onClick={() => {
+                                        handleLogout();
+                                        setMobileMenuOpen(false);
+                                    }}
+                                    className="block w-full rounded-lg px-4 py-2 text-left text-sm text-red-600 transition hover:bg-red-50"
+                                >
+                                    {isGuest ? "Exit Guest Mode" : "Log out"}
+                                </button>
+                            </div>
+                        )}
                     </div>
-                )}
-            </header>
+                </div>
+            )}
 
             {/* Main content */}
             <main className="mx-auto min-h-[calc(100vh-120px)] w-full max-w-6xl px-4 py-4 sm:px-6 sm:py-6">{children}</main>

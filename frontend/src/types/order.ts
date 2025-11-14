@@ -1,9 +1,13 @@
 export interface OrderSummary {
     orderId: string;
+    transactionId: string;
     subtotal: number;
+    shippingCost: number;
     discountVnd: number;
     total: number;
     earned: number;
+    itemCount: number;
+    date: string;
     status: string;
 }
 

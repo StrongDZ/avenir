@@ -5,4 +5,5 @@ export interface Product {
     price: number;
     tags: string[];
     attributes: Record<string, unknown>;
+    description?: string;
 }

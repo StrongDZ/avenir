@@ -5,10 +5,24 @@ import { useCartContext } from "../contexts/CartContext";
 import { useAuth } from "../contexts/AuthContext";
 import { Button } from "../components/common/Button";
 import { Loader } from "../components/common/Loader";
-import { OrderConfirmationModal } from "../components/common/OrderConfirmationModal";
 import { productService } from "../services/productService";
 import { Product } from "../types/product";
 import { formatCurrencyVnd } from "../utils/formatCurrency";
+
+// Import product images
+import ProductImg1 from "../../statics/products/20210615._head_banner_web__b8093e15a30d434c98f7623b1e48314c.jpg";
+import ProductImg2 from "../../statics/Anh-avartar-cocoon.jpg";
+import ProductImg3 from "../../statics/photo-3-1604502916022324847175.jpg";
+import ProductImg4 from "../../statics/review-menu-phe-la-3.jpg";
+import ProductImg5 from "../../statics/review-menu-phe-la-6.jpg";
+
+const productImages = [ProductImg1, ProductImg2, ProductImg3, ProductImg4, ProductImg5];
+
+// Helper to get random image for a product
+const getProductImage = (productId: string): string => {
+    const index = productId.split("").reduce((acc, char) => acc + char.charCodeAt(0), 0);
+    return productImages[index % productImages.length];
+};
 
 const REDEEM_RATE_VND_PER_POINT = 1; // 1 point = 1 VND (1:1 ratio)
 
@@ -20,7 +34,6 @@ export const CheckoutPage: React.FC = () => {
     const [redeem, setRedeem] = React.useState(0);
     const [result, setResult] = React.useState<any | null>(null);
     const [submitting, setSubmitting] = React.useState(false);
-    const [showModal, setShowModal] = React.useState(false);
     const [products, setProducts] = React.useState<Product[]>([]);
     const [productsLoading, setProductsLoading] = React.useState(true);
     const balance = overview?.balance ?? 0;
@@ -73,31 +86,25 @@ export const CheckoutPage: React.FC = () => {
         }
     }, [balance]);
 
-    // Show modal when result is set
+    // Navigate to confirmation page when result is set
     React.useEffect(() => {
         if (result) {
-            console.log("Result is set, showing modal:", result);
-            setShowModal(true);
+            console.log("Result is set, navigating to confirmation:", result);
+            navigate("/order-confirmation", { state: { order: result }, replace: true });
         }
-    }, [result]);
-
-    // Debug: Log props being passed to modal
-    React.useEffect(() => {
-        console.log("[CheckoutPage] Modal props:", { showModal, result });
-    }, [showModal, result]);
+    }, [result, navigate]);
 
     const submit = async () => {
         setSubmitting(true);
         setResult(null);
-        setShowModal(false); // Reset modal state
         try {
             const redeemValue = Math.max(0, Math.min(balance, redeem));
             const r = await checkout(redeemValue);
-            console.log("Checkout result:", r); // Debug log
+            console.log("Checkout result:", r);
             // Refresh data first
             await refresh();
             await refreshCart(); // Refresh cart to clear it
-            // Set result - useEffect will automatically show modal
+            // Set result - useEffect will automatically navigate to confirmation page
             setResult(r);
         } catch (e: any) {
             // In current flow payments always succeed, but handle just in case
@@ -108,13 +115,6 @@ export const CheckoutPage: React.FC = () => {
         }
     };
 
-    const handleCloseModal = () => {
-        setShowModal(false);
-        setResult(null);
-        setRedeem(0);
-        navigate("/"); // Navigate to home page
-    };
-
     if (rewardLoading && !overview) {
         return (
             <div className="py-20">
@@ -122,6 +122,8 @@ export const CheckoutPage: React.FC = () => {
             </div>
         );
     }
+
+    const [billingSameAsDelivery, setBillingSameAsDelivery] = React.useState(true);
 
     if (cartItems.length === 0 && !cartLoading) {
         return (
@@ -136,37 +138,99 @@ export const CheckoutPage: React.FC = () => {
 
     return (
         <div className="space-y-6">
-            <div>
-                <h2 className="text-2xl font-semibold text-gray-900">Checkout</h2>
-                <p className="text-sm text-gray-600">
-                    {balance > 0
-                        ? `You have ${balance.toLocaleString()} redeemable points. Apply them below to lower your total.`
-                        : "Start earning points by completing an order. Points can be redeemed for discounts here."}
-                </p>
+            <div className="flex items-center gap-4">
+                <button onClick={() => navigate(-1)} className="text-gray-600 hover:text-gray-900">
+                    <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                    </svg>
+                </button>
+                <h2 className="text-2xl font-semibold text-teal-700">Checkout</h2>
             </div>
 
-            {/* Cart Items */}
+            {/* Shipping Information */}
             <div className="rounded-3xl border border-gray-200 bg-white p-6 shadow-sm">
-                <h3 className="mb-4 text-lg font-semibold text-gray-900">Order Items</h3>
+                <div className="mb-4 flex items-center justify-between">
+                    <h3 className="text-lg font-semibold text-gray-900">Shipping</h3>
+                    <button className="flex items-center gap-1 text-sm font-semibold text-teal-600 hover:text-teal-700">
+                        <span>Add / Edit</span>
+                        <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
+                    </button>
+                </div>
+                {user && !user.isGuest && (
+                    <div className="space-y-2 text-sm text-gray-700">
+                        <div className="font-semibold text-gray-900">{user.username || "User"}</div>
+                        <div>{user.email || "No email"}</div>
+                        <div>{user.phone || "No phone"}</div>
+                        <div className="whitespace-pre-line">{user.address || "No address"}</div>
+                    </div>
+                )}
+                <div className="mt-4 flex items-center gap-2">
+                    <input
+                        type="checkbox"
+                        id="billing-same"
+                        checked={billingSameAsDelivery}
+                        onChange={(e) => setBillingSameAsDelivery(e.target.checked)}
+                        className="h-4 w-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500"
+                    />
+                    <label htmlFor="billing-same" className="text-sm text-gray-700">
+                        Billing and delivery addresses are same.
+                    </label>
+                </div>
+            </div>
+
+            {/* Payment Section */}
+            <div className="rounded-3xl border border-gray-200 bg-white p-6 shadow-sm">
+                <div className="flex items-center justify-between">
+                    <h3 className="text-lg font-semibold text-gray-900">Payment</h3>
+                    <button className="flex items-center gap-1 text-sm font-semibold text-teal-600 hover:text-teal-700">
+                        <span>Add / Edit</span>
+                        <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
+                    </button>
+                </div>
+                <div className="mt-4 flex items-center gap-3">
+                    <div className="flex h-10 w-16 items-center justify-center rounded bg-gray-100">
+                        <span className="text-xs font-semibold text-gray-600">CARD</span>
+                    </div>
+                    <div className="flex-1">
+                        <div className="text-sm font-medium text-gray-900">My Virtual Debit Card</div>
+                        <div className="text-xs text-gray-600">**** **** **** 8553</div>
+                    </div>
+                </div>
+            </div>
+
+            {/* Order Items */}
+            <div className="rounded-3xl border border-gray-200 bg-white p-6 shadow-sm">
+                <div className="mb-4 flex items-center justify-between">
+                    <h3 className="text-lg font-semibold text-gray-900">{orderSummary.itemsWithDetails.length} items</h3>
+                    <div className="rounded-lg bg-yellow-50 px-3 py-1.5 text-xs font-medium text-yellow-800">Arrives by April 3 to April 9th</div>
+                </div>
                 {productsLoading ? (
                     <div className="py-8 text-center">
                         <Loader text="Loading items..." />
                     </div>
                 ) : (
-                    <div className="space-y-3">
-                        {orderSummary.itemsWithDetails.map((item) => (
-                            <div key={item.productId} className="flex items-center justify-between rounded-2xl border border-gray-100 bg-gray-50 p-4">
-                                <div className="flex-1">
-                                    <div className="font-medium text-gray-900">{item.product?.name || "Unknown Product"}</div>
-                                    <div className="mt-1 text-xs text-gray-600">
-                                        {formatCurrencyVnd(item.product?.price || 0)} × {item.quantity}
+                    <div className="space-y-4">
+                        {orderSummary.itemsWithDetails.map((item) => {
+                            const productImage = getProductImage(item.productId);
+                            const weight = item.product?.attributes?.weight;
+                            return (
+                                <div key={item.productId} className="flex gap-4 rounded-2xl border border-gray-100 bg-white p-4">
+                                    <div className="h-20 w-20 flex-shrink-0 overflow-hidden rounded-lg bg-gray-100">
+                                        <img src={productImage} alt={item.product?.name || "Product"} className="h-full w-full object-cover" />
+                                    </div>
+                                    <div className="flex-1">
+                                        <div className="font-medium text-gray-900">{item.product?.name || "Unknown Product"}</div>
+                                        <div className="mt-1 text-xs text-gray-600">Net Weight: {weight ? String(weight) : "N/A"}</div>
+                                        <div className="mt-1 text-xs text-gray-600">Quantity: {item.quantity}</div>
+                                        <div className="mt-2 font-semibold text-gray-900">{formatCurrencyVnd(item.itemTotal)}</div>
                                     </div>
                                 </div>
-                                <div className="text-right">
-                                    <div className="font-semibold text-gray-900">{formatCurrencyVnd(item.itemTotal)}</div>
-                                </div>
-                            </div>
-                        ))}
+                            );
+                        })}
                     </div>
                 )}
             </div>
@@ -186,12 +250,6 @@ export const CheckoutPage: React.FC = () => {
                             <span className="font-semibold text-teal-600">-{formatCurrencyVnd(orderSummary.discountVnd)}</span>
                         </div>
                     )}
-                    <div className="border-t border-gray-200 pt-3">
-                        <div className="flex items-center justify-between">
-                            <span className="text-lg font-semibold text-gray-900">Total</span>
-                            <span className="text-lg font-bold text-teal-700">{formatCurrencyVnd(orderSummary.total)}</span>
-                        </div>
-                    </div>
                 </div>
 
                 <div className="grid gap-4 md:grid-cols-2">
@@ -239,13 +297,29 @@ export const CheckoutPage: React.FC = () => {
                         </Button>
                     </div>
                 </div>
-                <div className="flex items-center justify-end">
-                    <Button onClick={submit} disabled={submitting || cartItems.length === 0}>
-                        {submitting ? "Processing..." : "Complete payment"}
+            </div>
+
+            {/* Total and Pay Now */}
+            <div className="flex items-center justify-between rounded-3xl border border-gray-200 bg-white p-6 shadow-sm">
+                <div className="flex items-center gap-2">
+                    <svg className="h-5 w-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
+                    </svg>
+                    <span className="text-lg font-semibold text-gray-900">Total</span>
+                </div>
+                <div className="flex items-center gap-4">
+                    <div className="text-right">
+                        <div className="text-2xl font-bold text-orange-600">{formatCurrencyVnd(orderSummary.total)}</div>
+                    </div>
+                    <Button onClick={submit} disabled={submitting || cartItems.length === 0} className="bg-teal-600 hover:bg-teal-700">
+                        {submitting ? "Processing..." : "Pay Now"}
                     </Button>
                 </div>
             </div>
-            <OrderConfirmationModal open={showModal} onClose={handleCloseModal} order={result} />
+
+            <p className="text-center text-xs text-gray-500">
+                This is the final step, after you touching Pay Now button, the payment will be transaction.
+            </p>
         </div>
     );
 };

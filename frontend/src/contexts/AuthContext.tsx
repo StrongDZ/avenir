@@ -4,6 +4,9 @@ import { authService } from "../services/authService";
 interface AuthUser {
     id: string;
     username?: string;
+    email?: string;
+    phone?: string;
+    address?: string;
     isGuest?: boolean;
 }
 
@@ -11,7 +14,7 @@ interface AuthContextValue {
     user: AuthUser | null;
     loading: boolean;
     login: (username: string, password: string) => Promise<void>;
-    register: (username: string, password: string) => Promise<void>;
+    register: (username: string, password: string, confirmPassword: string, email: string, phone: string, address: string) => Promise<void>;
     loginAsGuest: () => void;
     logout: () => void;
 }
@@ -62,7 +65,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             authService
                 .me()
                 .then((me) => {
-                    if (me?.id) applyUser({ id: me.id, username: me.username, isGuest: false });
+                    if (me?.id)
+                        applyUser({ id: me.id, username: me.username, email: me.email, phone: me.phone, address: me.address, isGuest: false });
                 })
                 .catch(() => {
                     applyUser(null);
@@ -76,16 +80,30 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const login = React.useCallback(
         async (username: string, password: string) => {
             const res = await authService.login(username, password);
-            const authUser: AuthUser = { id: res.user.id, username: res.user.username ?? username, isGuest: false };
+            const authUser: AuthUser = {
+                id: res.user.id,
+                username: res.user.username ?? username,
+                email: res.user.email,
+                phone: res.user.phone,
+                address: res.user.address,
+                isGuest: false,
+            };
             applyUser(authUser, res.token);
         },
         [applyUser]
     );
 
     const register = React.useCallback(
-        async (username: string, password: string) => {
-            const res = await authService.register(username, password);
-            const authUser: AuthUser = { id: res.user.id, username: res.user.username ?? username, isGuest: false };
+        async (username: string, password: string, confirmPassword: string, email: string, phone: string, address: string) => {
+            const res = await authService.register(username, password, confirmPassword, email, phone, address);
+            const authUser: AuthUser = {
+                id: res.user.id,
+                username: res.user.username ?? username,
+                email: res.user.email,
+                phone: res.user.phone,
+                address: res.user.address,
+                isGuest: false,
+            };
             applyUser(authUser, res.token);
         },
         [applyUser]

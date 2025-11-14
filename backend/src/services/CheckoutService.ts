@@ -34,6 +34,24 @@ export class CheckoutService {
 
         await this.orderRepo.updateStatus(order.id, "Processing");
 
-        return { orderId: order.id, subtotal, discountVnd, total, earned, status: "Processing" };
+        // Calculate shipping cost (fixed 25,000 VND for now)
+        const shippingCost = 25000;
+        const itemCount = items.reduce((sum, item) => sum + item.quantity, 0);
+
+        // Generate transaction ID from order ID
+        const transactionId = order.id.replace(/-/g, "").toUpperCase().slice(0, 12);
+
+        return {
+            orderId: order.id,
+            transactionId,
+            subtotal,
+            shippingCost,
+            discountVnd,
+            total,
+            earned,
+            itemCount,
+            date: order.createdAt,
+            status: "Processing",
+        };
     }
 }

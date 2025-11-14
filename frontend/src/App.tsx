@@ -16,6 +16,7 @@ import { AuthProvider, useAuth } from "./contexts/AuthContext";
 import { Loader } from "./components/common/Loader";
 import { AccountPage } from "./pages/AccountPage";
 import { ProductDetailPage } from "./pages/ProductDetailPage";
+import { OrderConfirmationPage } from "./pages/OrderConfirmationPage";
 
 export default function App() {
     return (
@@ -54,6 +55,7 @@ function AppLayout() {
                         <Route path="/login" element={<LoginPage />} />
                         <Route path="/orders" element={<OrdersPage />} />
                         <Route path="/account" element={<AccountPage />} />
+                        <Route path="/order-confirmation" element={<OrderConfirmationPage />} />
                     </Routes>
                     <NotificationStack />
                 </Shell>

@@ -31,8 +31,10 @@
             "attributes": {
                 "skinType": ["oily"],
                 "benefits": ["balance", "reduce shine"],
-                "sleepRange": ["4-6", "6-8"]
-            }
+                "sleepRange": ["4-6", "6-8"],
+                "category": "skincare"
+            },
+            "description": "Specially formulated for oily skin types, this toner helps balance sebum production and reduce shine. Made with natural ingredients that gently cleanse and hydrate without stripping your skin's natural moisture barrier."
         },
         {
             "id": "cocoon-cream-dry",
@@ -43,8 +45,10 @@
             "attributes": {
                 "skinType": ["dry"],
                 "benefits": ["moisturize", "barrier"],
-                "sleepRange": ["6-8", "8+"]
-            }
+                "sleepRange": ["6-8", "8+"],
+                "category": "skincare"
+            },
+            "description": "Intensive hydrating cream specially designed for dry skin types. Rich in nourishing ingredients that restore moisture barrier and provide long-lasting hydration. Perfect for daily use to keep your skin soft, supple, and protected."
         },
         {
             "id": "la-spa-massage-stress",
@@ -55,8 +59,10 @@
             "attributes": {
                 "wellness": ["stress"],
                 "benefits": ["relax", "circulation"],
-                "sleepRange": ["1-4", "4-6", "6-8"]
-            }
+                "sleepRange": ["1-4", "4-6", "6-8"],
+                "category": "spa"
+            },
+            "description": "A therapeutic massage designed to relieve stress and tension. Our expert therapists use gentle techniques to improve circulation, release muscle tension, and promote deep relaxation. Perfect for unwinding after a long day."
         },
         {
             "id": "la-spa-facial-glow",
@@ -67,8 +73,10 @@
             "attributes": {
                 "skinType": ["dull"],
                 "benefits": ["glow"],
-                "sleepRange": ["4-6", "6-8"]
-            }
+                "sleepRange": ["4-6", "6-8"],
+                "category": "spa"
+            },
+            "description": "Revitalizing facial treatment that brightens and rejuvenates dull skin. Using premium natural ingredients, this facial helps restore your skin's natural glow and radiance. Leaves your skin feeling refreshed, smooth, and luminous."
         },
         {
             "id": "phe-la-energy-coffee",
@@ -79,8 +87,10 @@
             "attributes": {
                 "symptom": ["low_energy"],
                 "benefits": ["energy"],
-                "sleepRange": ["1-4", "4-6"]
-            }
+                "sleepRange": ["1-4", "4-6"],
+                "category": "drinks"
+            },
+            "description": "Premium Vietnamese coffee blend crafted to boost your energy and focus. Made from carefully selected coffee beans, this rich and aromatic brew provides a natural energy boost to help you power through your day."
         },
         {
             "id": "phe-la-decaf",
@@ -91,8 +101,10 @@
             "attributes": {
                 "symptom": ["relax"],
                 "benefits": ["calm"],
-                "sleepRange": ["6-8", "8+"]
-            }
+                "sleepRange": ["6-8", "8+"],
+                "category": "drinks"
+            },
+            "description": "Smooth decaffeinated coffee that maintains the rich flavor of traditional Vietnamese coffee without the caffeine. Perfect for evening enjoyment or for those who want to relax without the energy boost."
         },
         {
             "id": "snap-food-salad",
@@ -103,8 +115,10 @@
             "attributes": {
                 "diet": ["healthy"],
                 "benefits": ["fiber", "vitamins"],
-                "sleepRange": ["4-6", "6-8"]
-            }
+                "sleepRange": ["4-6", "6-8"],
+                "category": "food"
+            },
+            "description": "Made from natural fresh vegetables, so the salad is rich in fiber and vitamins, helping our digestive system to be very healthy. Snap's fresh salad is ready to eat, can be combined with your favorite dressing."
         },
         {
             "id": "snap-food-protein-bowl",
@@ -115,10 +129,11 @@
             "attributes": {
                 "diet": ["high_protein"],
                 "benefits": ["muscle", "satiety"],
-                "sleepRange": ["1-4", "4-6"]
-            }
+                "sleepRange": ["1-4", "4-6"],
+                "category": "food"
+            },
+            "description": "Nutritious protein-packed bowl designed to support muscle recovery and keep you satisfied. Made with lean proteins, whole grains, and fresh vegetables. Perfect for active lifestyles and those following a high-protein diet."
         },
-
         {
             "id": "cocoon-cleanser-gentle",
             "brandId": "cocoon",
@@ -128,8 +143,10 @@
             "attributes": {
                 "skinType": ["sensitive", "normal"],
                 "benefits": ["cleanse", "calm"],
-                "sleepRange": ["4-6", "6-8", "8+"]
-            }
+                "sleepRange": ["4-6", "6-8", "8+"],
+                "category": "skincare"
+            },
+            "description": "Ultra-gentle cleanser perfect for sensitive and normal skin types. Formulated with soothing ingredients that effectively remove impurities without stripping your skin's natural moisture. Leaves your skin feeling clean, calm, and refreshed."
         },
         {
             "id": "cocoon-serum-brightening",
@@ -140,8 +157,10 @@
             "attributes": {
                 "skinType": ["dull", "combination"],
                 "benefits": ["glow", "even_tone"],
-                "sleepRange": ["6-8", "8+"]
-            }
+                "sleepRange": ["6-8", "8+"],
+                "category": "skincare"
+            },
+            "description": "Advanced brightening serum that targets dullness and uneven skin tone. Infused with powerful natural brightening agents, this serum helps reveal a more radiant, even-toned complexion. Perfect for those seeking a natural glow."
         },
         {
             "id": "cocoon-serum-acne",
@@ -152,8 +171,10 @@
             "attributes": {
                 "skinType": ["oily", "combination"],
                 "benefits": ["reduce acne", "balance"],
-                "sleepRange": ["4-6", "6-8"]
-            }
+                "sleepRange": ["4-6", "6-8"],
+                "category": "skincare"
+            },
+            "description": "Targeted treatment serum for acne-prone skin. Formulated with natural ingredients that help reduce breakouts, control excess oil, and balance your skin's sebum production. Gentle yet effective for clearer, healthier-looking skin."
         },
         {
             "id": "cocoon-cream-sensitive",
@@ -164,8 +185,10 @@
             "attributes": {
                 "skinType": ["sensitive"],
                 "benefits": ["calm", "barrier"],
-                "sleepRange": ["6-8", "8+"]
-            }
+                "sleepRange": ["6-8", "8+"],
+                "category": "skincare"
+            },
+            "description": "Specially formulated soothing cream for sensitive skin. Contains calming ingredients that help reduce irritation and strengthen your skin's natural barrier. Hypoallergenic and fragrance-free for maximum comfort."
         },
         {
             "id": "cocoon-sunscreen-daily",
@@ -176,10 +199,11 @@
             "attributes": {
                 "skinType": ["oily", "dry", "combination", "normal"],
                 "benefits": ["protect", "even_tone"],
-                "sleepRange": ["6-8", "8+"]
-            }
+                "sleepRange": ["6-8", "8+"],
+                "category": "skincare"
+            },
+            "description": "Broad-spectrum SPF50 sunscreen suitable for all skin types. Provides excellent protection against UVA and UVB rays while helping to prevent sun damage and maintain even skin tone. Lightweight, non-greasy formula perfect for daily use."
         },
-
         {
             "id": "la-spa-deep-tissue",
             "brandId": "la-spa",
@@ -189,8 +213,10 @@
             "attributes": {
                 "wellness": ["stress"],
                 "benefits": ["relax", "muscle_relief"],
-                "sleepRange": ["1-4", "4-6", "6-8"]
-            }
+                "sleepRange": ["1-4", "4-6", "6-8"],
+                "category": "spa"
+            },
+            "description": "Intensive deep tissue massage targeting chronic muscle tension and knots. Our skilled therapists use firm pressure and specialized techniques to release deep-seated tension, improve flexibility, and promote overall muscle recovery."
         },
         {
             "id": "la-spa-aroma-sleep",
@@ -201,8 +227,10 @@
             "attributes": {
                 "wellness": ["stress"],
                 "benefits": ["calm", "sleep"],
-                "sleepRange": ["4-6", "6-8", "8+"]
-            }
+                "sleepRange": ["4-6", "6-8", "8+"],
+                "category": "spa"
+            },
+            "description": "Aromatherapy treatment designed to promote better sleep and relaxation. Using carefully selected essential oils known for their calming properties, this therapy helps reduce stress, ease tension, and prepare your body and mind for restful sleep."
         },
         {
             "id": "la-spa-detox-body-wrap",
@@ -213,8 +241,10 @@
             "attributes": {
                 "wellness": ["stress"],
                 "benefits": ["detox", "circulation"],
-                "sleepRange": ["1-4", "4-6", "6-8"]
-            }
+                "sleepRange": ["1-4", "4-6", "6-8"],
+                "category": "spa"
+            },
+            "description": "Revitalizing body wrap treatment that helps detoxify and rejuvenate your skin. Using natural detoxifying ingredients, this treatment improves circulation, eliminates toxins, and leaves your skin feeling refreshed and renewed."
         },
         {
             "id": "la-spa-focus-head-neck",
@@ -225,10 +255,11 @@
             "attributes": {
                 "wellness": ["focus"],
                 "benefits": ["clear_mind", "relax"],
-                "sleepRange": ["1-4", "4-6", "6-8"]
-            }
+                "sleepRange": ["1-4", "4-6", "6-8"],
+                "category": "spa"
+            },
+            "description": "Specialized massage focusing on the head, neck, and shoulder area. Perfect for relieving tension headaches, neck stiffness, and mental fatigue. Helps clear your mind, improve focus, and restore mental clarity."
         },
-
         {
             "id": "phe-la-cold-brew",
             "brandId": "phe-la",
@@ -238,8 +269,10 @@
             "attributes": {
                 "symptom": ["low_energy"],
                 "benefits": ["focus", "energy"],
-                "sleepRange": ["1-4", "4-6"]
-            }
+                "sleepRange": ["1-4", "4-6"],
+                "category": "drinks"
+            },
+            "description": "Smooth and refreshing cold brew coffee, slow-steeped for 24 hours to extract maximum flavor. Less acidic than hot coffee, this cold brew provides sustained energy and enhanced focus. Perfect for hot days or when you need a refreshing pick-me-up."
         },
         {
             "id": "phe-la-matcha-latte",
@@ -250,8 +283,10 @@
             "attributes": {
                 "symptom": ["relax"],
                 "benefits": ["focus", "calm"],
-                "sleepRange": ["4-6", "6-8"]
-            }
+                "sleepRange": ["4-6", "6-8"],
+                "category": "drinks"
+            },
+            "description": "Creamy matcha latte made with premium Japanese matcha powder. Provides a gentle energy boost with L-theanine for calm focus, without the jitters. Smooth, earthy flavor balanced with creamy milk for a perfect zen moment."
         },
         {
             "id": "phe-la-cacao-warm",
@@ -262,8 +297,10 @@
             "attributes": {
                 "symptom": ["relax"],
                 "benefits": ["calm", "comfort"],
-                "sleepRange": ["6-8", "8+"]
-            }
+                "sleepRange": ["6-8", "8+"],
+                "category": "drinks"
+            },
+            "description": "Rich and comforting warm cacao drink, perfect for relaxation and comfort. Made with premium cacao, this soothing beverage helps calm your mind and provides a sense of warmth and well-being. Ideal for evening enjoyment."
         },
         {
             "id": "phe-la-espresso-double",
@@ -274,10 +311,11 @@
             "attributes": {
                 "symptom": ["low_energy"],
                 "benefits": ["energy"],
-                "sleepRange": ["1-4", "4-6"]
-            }
+                "sleepRange": ["1-4", "4-6"],
+                "category": "drinks"
+            },
+            "description": "Bold and intense double espresso shot for maximum energy boost. Made from carefully selected coffee beans, this concentrated brew delivers a powerful caffeine kick to help you power through demanding days."
         },
-
         {
             "id": "snap-food-keto-bowl",
             "brandId": "snap-food",
@@ -287,8 +325,10 @@
             "attributes": {
                 "diet": ["high_protein"],
                 "benefits": ["weight", "satiety"],
-                "sleepRange": ["1-4", "4-6"]
-            }
+                "sleepRange": ["1-4", "4-6"],
+                "category": "food"
+            },
+            "description": "Low-carb, high-fat keto-friendly bowl designed for ketogenic diet followers. Packed with healthy fats, quality proteins, and low-carb vegetables. Keeps you satisfied while supporting your weight management goals."
         },
         {
             "id": "snap-food-oatmeal-berry",
@@ -299,8 +339,10 @@
             "attributes": {
                 "diet": ["healthy"],
                 "benefits": ["fiber", "focus"],
-                "sleepRange": ["4-6", "6-8"]
-            }
+                "sleepRange": ["4-6", "6-8"],
+                "category": "food"
+            },
+            "description": "Hearty oatmeal bowl topped with fresh berries and natural sweeteners. Rich in fiber and complex carbohydrates, this nutritious breakfast provides sustained energy and helps improve focus throughout your morning."
         },
         {
             "id": "snap-food-chicken-sandwich",
@@ -311,8 +353,10 @@
             "attributes": {
                 "diet": ["balanced"],
                 "benefits": ["muscle", "energy"],
-                "sleepRange": ["1-4", "4-6", "6-8"]
-            }
+                "sleepRange": ["1-4", "4-6", "6-8"],
+                "category": "food"
+            },
+            "description": "Balanced meal featuring tender grilled chicken in a whole grain sandwich. Packed with lean protein and balanced nutrients, this satisfying sandwich supports muscle recovery and provides steady energy for your active lifestyle."
         },
         {
             "id": "snap-food-green-smoothie",
@@ -323,8 +367,10 @@
             "attributes": {
                 "diet": ["healthy"],
                 "benefits": ["vitamins", "glow"],
-                "sleepRange": ["6-8", "8+"]
-            }
+                "sleepRange": ["6-8", "8+"],
+                "category": "food"
+            },
+            "description": "Nutrient-dense green smoothie packed with leafy greens, fruits, and superfoods. Rich in vitamins, antioxidants, and minerals that support overall health and promote a natural glow from within."
         },
         {
             "id": "snap-food-pumpkin-soup",
@@ -335,8 +381,10 @@
             "attributes": {
                 "diet": ["healthy"],
                 "benefits": ["comfort", "fiber"],
-                "sleepRange": ["6-8", "8+"]
-            }
+                "sleepRange": ["6-8", "8+"],
+                "category": "food"
+            },
+            "description": "Creamy and comforting pumpkin soup made from fresh pumpkins and natural ingredients. Rich in fiber and beta-carotene, this warming soup provides comfort and nourishment. Perfect for cozy evenings and healthy meal options."
         }
     ]
 }
