@@ -109,5 +109,5 @@
         "skipLibCheck": true /* Skip type checking all .d.ts files. */
     },
     "include": ["src", "sdk/**/*.ts"],
-    "exclude": ["node_modules", "swagger", "logs"]
+    "exclude": ["node_modules", "logs"]
 }

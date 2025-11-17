@@ -4,11 +4,11 @@ import { Product } from "../../types/product";
 import { formatCurrencyVnd } from "../../utils/formatCurrency";
 
 // Import product images
-import ProductImg1 from "../../../statics/products/20210615._head_banner_web__b8093e15a30d434c98f7623b1e48314c.jpg";
-import ProductImg2 from "../../../statics/Anh-avartar-cocoon.jpg";
-import ProductImg3 from "../../../statics/photo-3-1604502916022324847175.jpg";
-import ProductImg4 from "../../../statics/review-menu-phe-la-3.jpg";
-import ProductImg5 from "../../../statics/review-menu-phe-la-6.jpg";
+import ProductImg1 from "../../assets/products/20210615._head_banner_web__b8093e15a30d434c98f7623b1e48314c.jpg";
+import ProductImg2 from "../../assets/Anh-avartar-cocoon.jpg";
+import ProductImg3 from "../../assets/photo-3-1604502916022324847175.jpg";
+import ProductImg4 from "../../assets/review-menu-phe-la-3.jpg";
+import ProductImg5 from "../../assets/review-menu-phe-la-6.jpg";
 
 const productImages = [ProductImg1, ProductImg2, ProductImg3, ProductImg4, ProductImg5];
 

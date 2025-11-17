@@ -26,7 +26,7 @@ RUN npm ci --omit=dev
 
 # copy file build output (JS compiled) từ build stage
 COPY --from=build-stage /home/node/app/build ./build
-COPY --from=build-stage /home/node/app/swagger ./swagger
+COPY --from=build-stage /home/node/app/src/swagger ./src/swagger
 
 # xóa cache npm để nhẹ hơn
 RUN rm -rf /root/.npm /tmp/*

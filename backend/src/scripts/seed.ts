@@ -85,7 +85,7 @@ create unique index if not exists users_username_unique on users(username);
 }
 
 async function seedData() {
-    const dataPath = path.resolve(__dirname, "..", "..", "..", "data", "products.json");
+    const dataPath = path.resolve(__dirname, "..", "data", "products.json");
     const raw = JSON.parse(readFileSync(dataPath, "utf-8"));
     const brands = raw.brands as Array<{ id: string; name: string; currency: string }>;
     const products = raw.products as Array<any>;
