@@ -27,8 +27,11 @@ RUN npm ci --omit=dev
 # copy file build output (JS compiled) từ build stage
 COPY --from=build-stage /home/node/app/build ./build
 COPY --from=build-stage /home/node/app/src/swagger ./src/swagger
-# copy data files cho seed script
-COPY --from=build-stage /home/node/app/src/data ./src/data
+# copy data files cho seed script (vào đúng path mà seed script tìm: build/src/data)
+# Seed script compiled sẽ tìm ở build/src/data/products.json
+# (vì __dirname trong compiled code sẽ là build/src/scripts)
+RUN mkdir -p ./build/src/data
+COPY --from=build-stage /home/node/app/src/data/products.json ./build/src/data/products.json
 
 # copy entrypoint script và set executable (trước khi chuyển user)
 COPY docker-entrypoint.sh /home/node/app/docker-entrypoint.sh
