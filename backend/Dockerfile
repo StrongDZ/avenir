@@ -27,6 +27,12 @@ RUN npm ci --omit=dev
 # copy file build output (JS compiled) từ build stage
 COPY --from=build-stage /home/node/app/build ./build
 COPY --from=build-stage /home/node/app/src/swagger ./src/swagger
+# copy data files cho seed script
+COPY --from=build-stage /home/node/app/src/data ./src/data
+
+# copy entrypoint script và set executable (trước khi chuyển user)
+COPY docker-entrypoint.sh /home/node/app/docker-entrypoint.sh
+RUN chmod +x /home/node/app/docker-entrypoint.sh
 
 # xóa cache npm để nhẹ hơn
 RUN rm -rf /root/.npm /tmp/*
@@ -34,5 +40,5 @@ RUN rm -rf /root/.npm /tmp/*
 # đổi user để chạy không cần root
 USER node
 
-# khởi chạy app
-CMD ["node", "build/src/server.js"]
+# sử dụng entrypoint script để chạy init-db trước khi start server
+ENTRYPOINT ["/home/node/app/docker-entrypoint.sh"]
