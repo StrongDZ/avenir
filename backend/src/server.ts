@@ -6,7 +6,6 @@ import compression from "compression";
 import { rateLimit } from "express-rate-limit";
 import morgan from "morgan";
 import * as dotenv from "dotenv";
-import { CronJobs } from "./cronJobs";
 import { Config, OrchaiDBConfig } from "./common/config";
 import { ExampleRouter } from "./routers/ExampleRouter";
 import { ProductRouter } from "./routers/ProductRouter";
@@ -93,7 +92,6 @@ class Server {
 async function startServer(): Promise<void> {
     const server = new Server();
     server.start();
-    await CronJobs.start();
 }
 
 startServer();

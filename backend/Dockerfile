@@ -35,7 +35,9 @@ COPY --from=build-stage /home/node/app/src/data/products.json ./build/src/data/p
 
 # copy entrypoint script và set executable (trước khi chuyển user)
 COPY docker-entrypoint.sh /home/node/app/docker-entrypoint.sh
-RUN chmod +x /home/node/app/docker-entrypoint.sh
+# Fix line endings cho Windows (CRLF -> LF) và set executable
+RUN sed -i 's/\r$//' /home/node/app/docker-entrypoint.sh && \
+    chmod +x /home/node/app/docker-entrypoint.sh
 
 # xóa cache npm để nhẹ hơn
 RUN rm -rf /root/.npm /tmp/*
