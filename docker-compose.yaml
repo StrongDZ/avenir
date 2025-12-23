@@ -39,8 +39,6 @@ services:
         depends_on:
             postgres:
                 condition: service_healthy
-            init-db:
-                condition: service_completed_successfully
         restart: unless-stopped
 
     frontend:
@@ -55,28 +53,6 @@ services:
         depends_on:
             - backend
         restart: unless-stopped
-
-    init-db:
-        image: avenir-backend
-        container_name: avenir-init-db
-        environment:
-            PG_HOST: ${PG_HOST}
-            PG_PORT: ${PG_PORT}
-            PG_USER: ${PG_USER}
-            PG_PASSWORD: ${PG_PASSWORD}
-            PG_DATABASE: ${PG_DATABASE}
-            PG_SSL: ${PG_SSL}
-        env_file:
-            - ./backend/.env
-        depends_on:
-            postgres:
-                condition: service_healthy
-        volumes:
-            - ./data:/home/node/app/data:ro
-        entrypoint: ["/bin/sh", "-lc"]
-        command: |
-            "node build/src/scripts/seed.js && node build/src/scripts/demoReset.js"
-        restart: "no"
 
 volumes:
     pgdata:
